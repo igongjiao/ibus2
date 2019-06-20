@@ -1,0 +1,20 @@
+<!--pages/search/search.wxml-->
+<view class="top" >
+  <view class="search" bindtap="Search">
+    <input class="" placeholder="搜索公交路线、车站、地点" bindinput="get_search" ></input>
+    <icon type="search" bindtap="Routine"></icon>
+  </view>
+</view>
+<view class="middle">
+<view style="background-color:  rgb(241,241,243);height:20rpx;"></view>
+  <view class="search_history">
+  <view class="text">搜索历史</view>
+  <view wx:for="{{history_places}}" >
+    <view class="place">
+      <icon type="waiting"></icon>
+      <view id="name">{{item.name}}</view>
+    </view>
+  </view>
+  <button bindtap="loghistory">清空搜索历史</button>
+  </view>
+</view>

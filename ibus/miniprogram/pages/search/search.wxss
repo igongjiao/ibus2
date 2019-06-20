@@ -1,0 +1,73 @@
+/* pages/search/search.wxss */
+.top{
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  margin:10rpx 0 30rpx 0;
+}
+.search{
+  width: 90%;
+  display: flex;
+  margin: 0 auto;
+  background: #A3D0C3;
+  align-items: center;
+}
+
+
+
+.search input{
+  height: 32px;
+  border: 2px solid #7BA7AB;
+  border-radius: 10rpx;
+  padding-left: 13px;
+  background: #F9F0DA;
+  color: #9E9C9C;
+  width: 100%;
+  /* font-size: 30rpx; */
+
+}
+.search icon{
+  height: 32px;
+  width: 42px;
+  outline: 0;
+  border:0;
+  background: #7BA7AB;
+  justify-content: center;
+  vertical-align: middle;
+}
+.search icon::before{
+  font-family: FontAwesome;
+  font-size: 16px;
+  color: #F9F0DA;
+}
+
+
+/*  */
+.middle{
+  
+}
+
+.middle .text{
+  height: 80rpx;
+  width: 100%;
+  padding:30rpx 0 0 30rpx;
+  vertical-align: middle;
+  background-color: rgb(250,250,250);
+  font-size:30rpx;
+  color:rgb(210,210,210);
+}
+
+.middle .place{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: 150rpx;
+  border-bottom: 1px solid rgb(241, 241,243);
+  padding-left: 20rpx;
+}
+.middle #name{
+  margin-left: 20rpx;
+  font-size: 40rpx;
+  font-family:  Microsoft YaHei ;
+}

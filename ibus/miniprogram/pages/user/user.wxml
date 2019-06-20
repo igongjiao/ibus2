@@ -1,0 +1,25 @@
+<!--pages/user/user.wxml-->
+<view class="userinfo">
+  <text class="userinfo-name">{{userInfo.nickName}}</text>
+  <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" ></image>
+</view>
+<view class="middle">
+  <image class="img" src="../../image/log.jpg"></image>
+</view>
+  <view class="bt_group">
+    <view bindtap="collect" class="bt">
+      <image class="icon"  src="../../image/collect.png"></image>
+      <text>收藏</text>
+      <image class="right" src="../../image/right.png"></image>
+    </view>
+    <view bindtap="collect" class="bt">
+      <image class="icon"  src="../../image/collect.png"></image>
+      <text>历史</text>
+      <image class="right" src="../../image/right.png"></image>
+    </view>
+    <view bindtap="collect" class="bt" >
+      <image class="icon"  src="../../image/collect.png"></image>
+      <text>足迹</text>
+      <image class="right" src="../../image/right.png"></image>
+    </view>
+  </view>

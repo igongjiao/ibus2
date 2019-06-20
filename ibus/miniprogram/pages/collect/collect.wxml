@@ -1,0 +1,30 @@
+<view class="top">
+  <!-- 导航栏 -->
+  <view class="navbar">
+    <block wx:for="{{navbarTitle}}" wx:key="index">
+      <view class="navbar-item {{navbarActiveIndex === index ? 'navbar-item-active' : ''}}" data-navbar-index="{{index}}" catchtap="onNavBarTap">
+        <text>{{item}}</text>
+      </view>
+    </block>
+  </view>
+  <view class="collect-content-wrapper">
+    <swiper current="{{navbarActiveIndex}}" bindanimationfinish="onBindAnimationFinish" style="height:{{scrollViewHeight}}px;background-color:rgb(241, 241,243);">
+    <!-- 站点 -->
+      <swiper-item >
+        <scroll-view class="content" scroll-y="true" >
+          <view class="message" wx:for="{{station}}">
+            <text>{{item.message}}</text>
+          </view>
+        </scroll-view>
+      </swiper-item>
+      <!-- 路线 -->
+      <swiper-item >
+        <scroll-view class="content" scroll-y="true" >
+          <view class="message" wx:for="{{routine}}" >
+            <text>{{item.message}}</text>
+          </view>
+        </scroll-view>
+      </swiper-item>
+    </swiper>
+  </view>
+</view>
