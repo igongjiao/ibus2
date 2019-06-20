@@ -50,6 +50,7 @@ Page({
     //地图放大倍数
     scale:16,
     markerScale:17,
+    markerLabelScale:12,
     //用户所在城市信息
     province:"湖北省",
     city:"武汉",
@@ -126,7 +127,7 @@ Page({
                 label:{
                   content: res.data[i].title.split("[")[0]+"站",
                   color: "#424200",
-                  fontSize:12,
+                  fontSize: _page.data.markerLabelScale,
                   borderWidth:0,
                   x: -res.data[i].title.length-25,
                   y: 0,
@@ -151,7 +152,7 @@ Page({
             // })
             _page.setData({
               markers:mks,
-              scale: 18,
+              //scale: 18,
               includePoints:includeP
             })
           },
@@ -172,6 +173,25 @@ Page({
     wx.navigateTo({
       url: '../logs/logs'
     })
+  },
+
+  UnShowText: function () {
+    let _page = this;
+    if(_page.data.markers[0].label.fontSize==0){
+      for (var i = 0; i < _page.data.markers.length;i++){
+        let str = "markers[" + i + "].label.fontSize"
+        _page.setData({
+          [str]: _page.data.markerLabelScale
+        });
+      }
+    }else{
+      for (var i = 0; i < _page.data.markers.length; i++) {
+        let str = "markers[" + i + "].label.fontSize"
+        _page.setData({
+          [str]: 0
+        });
+      }
+    }
   },
 
   Search: function(){
