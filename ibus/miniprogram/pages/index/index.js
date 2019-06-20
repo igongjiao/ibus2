@@ -173,6 +173,7 @@ Page({
       url: '../logs/logs'
     })
   },
+
   Search: function(){
     wx.navigateTo({
       url: '../search/search',
