@@ -8,17 +8,19 @@
 </view>
 
 <!--地图容器-->
-<map id="myMap" style="width: 100%; height: 300px;" longitude="{{longitude}}" latitude="{{latitude}}" scale='{{scale}}' polyline="{{polyline}}" markers="{{markers}}" covers="{{covers}}" include-points="{{includePoints}}" show-location></map>
- <button  bindtap="UnShowText"><image src="../../image/collect.png"></image></button>
+<map id="myMap" style="width: 100%; height: 300px;" longitude="{{longitude}}" latitude="{{latitude}}" scale='{{scale}}' polyline="{{polyline}}" markers="{{markers}}" covers="{{covers}}" include-points="{{includePoints}}" bindmarkertap="TapMapMarker"  show-location="true"></map>
+ <button  bindtap="RelocatingMapCenter"><image src="../../image/collect.png"></image></button>
 
   <button class="{{show==true?'show':'hide'}}" bindtap="Switch_show"><image src="../../image/{{show==true?'down.png':'up.png'}}" class="up_down"></image></button>
   <scroll-view scroll-y="true" class="{{show==true?'whole_show':'whole_hide'}}"  scroll-top="{{scrollTop}}" >
-    <view class="{{show==true?'block_show':'block_hide'}}" wx:for="{{bus}}" bindtap="Select_routine">
-    <text >{{item.bus_number}}</text>
-      <text>{{item.destination}}</text>
-        <text>{{item.station}}</text>
-          <text>{{item.accuracy}}</text>
-            <text>{{item.wait_time}}</text>
+    <view class="{{show==true?'block_show':'block_hide'}}" bindtap="Select_station">
+      <text >{{stationInfo.title}}</text>
+      <text >{{stationInfo.distance}}米</text>
+      <text >{{stationInfo.duration}}分钟</text>
+      <text >{{stationInfo.province}}|{{stationInfo.city}}|{{stationInfo.district}}</text>
+    </view> 
+    <view class="{{show==true?'block_show':'block_hide'}}" wx:for="{{stationInfo.busList}}" wx:for-item="bus" bindtap="Select_routine">
+    <text >{{bus}}</text>
             <image class="{{item.collected==false?'collect':'collect_hide'}}" bindtap="Collect_routine" src="../../image/heart.png" data-index="{{index}}"  ></image>
             <image class="{{item.collected==false?'collect_hide':'collect'}}" bindtap="Collect_routine" src="../../image/selected_heart.png" data-index="{{index}}"  ></image>
     </view>   
