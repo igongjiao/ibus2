@@ -166,7 +166,6 @@ Page({
     })
     
   },
-
   //事件处理函数
   bindViewTap: function() {
     wx.navigateTo({
@@ -178,11 +177,16 @@ Page({
       url: '../search/search',
     })
   },
+  //定位当前位置
+  Locate:function(){
+
+  },
   Switch_show:function(){
     var show_hidden=this.data.show
     this.setData({
        show:(!show_hidden)
     })
+    console.log(this.data.show)
   },
   Collect_routine:function (e){
     var that=this
@@ -207,5 +211,5 @@ Page({
     wx.navigateTo({
       url: '../routine/routine',
     })
-  }
+  },
 })

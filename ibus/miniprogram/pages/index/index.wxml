@@ -1,19 +1,22 @@
 <!--index.wxml-->
 
-<view  class="top">
-  <view class="search" bindtap="Search">
-    <icon class="search_icon" size="10" type="search"></icon>
-    <input class="" placeholder="搜索公交路线、车站、地点" ></input>
-  </view>
-</view>
-
 <!--地图容器-->
-<map id="myMap" style="width: 100%; height: 300px;" longitude="{{longitude}}" latitude="{{latitude}}" scale='{{scale}}' polyline="{{polyline}}" markers="{{markers}}" covers="{{covers}}" include-points="{{includePoints}}" show-location></map>
 
-  <button class="{{show==true?'show':'hide'}}" bindtap="Switch_show"><image src="../../image/{{show==true?'down.png':'up.png'}}" class="up_down"></image></button>
-  <scroll-view scroll-y="true" class="{{show==true?'whole_show':'whole_hide'}}"  scroll-top="{{scrollTop}}" >
-    <view class="{{show==true?'block_show':'block_hide'}}" wx:for="{{bus}}" bindtap="Select_routine">
-    <text >{{item.bus_number}}</text>
+<map id="myMap" longitude="{{longitude}}" latitude="{{latitude}}" scale='{{scale}}' polyline="{{polyline}}" markers="{{markers}}" covers="{{covers}}" include-points="{{includePoints}}"     show-location>
+    <cover-view class="search" bindtap="Search">
+      <cover-image class="search_icon" src="../../image/search.png"></cover-image>  
+      <cover-view class="input" >搜索公交路线、车站、地点 </cover-view>
+    </cover-view>
+    <cover-image class="up_down"  src="../../image/{{show==true?'down.png':'up.png'}}" bindtap="Switch_show" ></cover-image>
+    <cover-view class="{{show==true?'show':'hide'}}">
+      <cover-image class="locate" src="../../image/location.png" bindtap="Locate"></cover-image>
+    </cover-view>
+</map>
+
+<canvas class="pic" canvas-id="bus_station" >
+  <scroll-view scroll-y="true" class="scroll"  style="display:{{show==true?'block':'none'}}" scroll-top="{{scrollTop}}" >
+    <view class="block_show" wx:for="{{bus}}" bindtap="Select_routine">
+    <text>{{item.bus_number}}</text>
       <text>{{item.destination}}</text>
         <text>{{item.station}}</text>
           <text>{{item.accuracy}}</text>
@@ -22,3 +25,5 @@
             <image class="{{item.collected==false?'collect_hide':'collect'}}" bindtap="Collect_routine" src="../../image/selected_heart.png" data-index="{{index}}"  ></image>
     </view>   
   </scroll-view>
+</canvas>
+  

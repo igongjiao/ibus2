@@ -1,8 +1,8 @@
 {
   "pages": [
+      "pages/search/search",
     "pages/main/main",
     "pages/index/index",
-    "pages/search/search",
     "pages/logs/logs",
     "pages/user/user",
     "pages/collect/collect",
@@ -41,5 +41,10 @@
         "selectedIconPath": "image/wechatHL.png"
       }
     ]
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
   }
 }
