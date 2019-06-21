@@ -3,6 +3,22 @@ var app=getApp();
 var qqmapsdk = app.globalData.qqmapsdk;
 Page({
 
+  data: {
+
+    userName: '',
+
+    userPassword: '',
+
+    userPasswordAgain: '',
+
+    checkbox: false,
+
+    repetition: false
+
+  },
+
+
+
   /**
    * 页面的初始数据
    */
@@ -20,6 +36,66 @@ Page({
 
   //TODO
   get_search:function(e){
+
+
+
+    this.setData({
+
+      userName: e.detail.value
+
+    });
+
+
+
+
+    var that = this;
+    var userName = this.data.userName;
+    wx.cloud.init({
+
+      env: 'igongjiao-9og0k',
+
+      traceUser: true
+
+    });
+
+    // 初始化数据库
+
+    const db = wx.cloud.database();
+
+    const _ = db.command;
+
+    db.collection('something').where({
+
+      userName: _.eq(userName)
+
+    }).get({
+
+      success: function (res) {
+
+        if (res.data.length === 1) {
+
+          that.setData({
+
+            repetition: true
+
+          })
+
+        }
+
+      }
+
+    })  
+    db.collection('something').add({        
+      // data 字段表示需新增的 JSON 数据        
+      data: {          
+       userName: userName,          
+      }, success: function (res) {          
+        // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id          
+        console.log(res);          
+        console.log(res.errMsg);        
+        }      
+      });
+
     //app.globalData.search_place = e.detail.value
     qqmapsdk.getSuggestion({
       keyword: e.detail.value,
