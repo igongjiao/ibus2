@@ -32,13 +32,10 @@
       <cover-image class="{{location.collected==false?'collect_locate':'collect_locate_hide'}}" bindtap="Collect_location" src="../../image/heart.png" ></cover-image>
       <cover-image class="{{location.collected==false?'collect_locate_hide':'collect_locate'}}" bindtap="Collect_location" src="../../image/selected_heart.png" ></cover-image>
     </cover-view>
-
-    <view >
-      <view class="block_show" wx:for="{{bus}}" bindtap="Select_routine">
+    <view class="block_show" wx:for="{{bus}}" bindtap="Select_routine">
         <text>{{item.bus_number}}</text>
         <image class="{{item.collected==false?'collect':'collect_hide'}}" bindtap="Collect_routine" src="../../image/heart.png" data-index="{{index}}"  ></image>
         <image class="{{item.collected==false?'collect_hide':'collect'}}" bindtap="Collect_routine" src="../../image/selected_heart.png" data-index="{{index}}" ></image>
-      </view>   
-    </view>
+    </view>   
   </scroll-view>
 </canvas>
