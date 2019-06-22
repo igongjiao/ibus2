@@ -39,7 +39,6 @@ App({
   globalData: {
     userInfo: null,
     search_place:'',
-
     qqmapsdk:null,
   }
 })

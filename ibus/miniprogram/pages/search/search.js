@@ -10,24 +10,16 @@ Page({
    * 页面的初始数据
    */
   data: {
-    history_places: [{
-      name: "武汉大学"
-    }, {
-      name: "武汉大学"
-    }, {
-      name: "武汉大学"
-    }, {
-      name: "武汉大学"
-    }, {
-      name: "武汉大学"
-    }, {
-      name: "武汉大学"
-    }, ],
+    history_routines: [{ start: "华中科技大学", destination: "武汉大学" }, { start: "华中科技大学", destination: "武汉大学" }, { start: "华中科技大学", destination: "武汉大学" }, { start: "华中科技大学", destination: "武汉大学" }, { start: "华中科技大学", destination: "武汉大学" }, { start: "华中科技大学", destination: "武汉大学" },],
+    history_stations: [{ name: "佳园路" }, { name: "佳园路" }, { name: "佳园路" }, { name: "佳园路" }, { name: "佳园路" }, { name: "佳园路" },],
+    history_places: [{ name: "武汉大学" }, { name: "武汉大学" }, { name: "武汉大学" }, { name: "武汉大学" }, { name: "武汉大学" }, { name: "武汉大学" },],
+    routine_number: 3,
+    station_number: 3,
+    place_number: 3,
+
 
     searchProvince: "", //"湖北省",
     searchCity: "", //"武汉市",
-
-
 
     searchTitle: "",
 
@@ -79,6 +71,12 @@ Page({
   searchInfo: function() {
     let _page = this;
     _page.searchStation(_page.data.startLocation.searchTitle, "startLocation.latitude", "startLocation.longitude");
+
+    //数据可能未加载完成TODO
+    wx.switchTab({
+      url: '../index/index',
+    })
+
   },
 
   searchStation(keyword, latStr, lngStr) {
@@ -123,12 +121,7 @@ Page({
     });
     return;
   },
-  Routine: function() {
 
-    wx.switchTab({
-      url: '../index/index',
-    })
-  },
 
   onLoad: function(options) {
     let _page = this;
@@ -144,8 +137,27 @@ Page({
     })
   },
 
-  onShow: function(options) {
-
+  
+  check_more1:function(options){
+    this.setData({
+      routine_number:15,
+      station_number:3,
+      place_number:3
+    })
+  },
+  check_more2: function (options) {
+    this.setData({
+      routine_number: 3,
+      station_number: 15,
+      place_number: 3
+    })
+  },
+  check_more3: function (options) {
+    this.setData({
+      routine_number: 3,
+      station_number: 3,
+      place_number: 15
+    })
   },
 
 })

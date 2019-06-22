@@ -1,90 +1,104 @@
 /**index.wxss**/
-
-
-.top{
-  height: 220rpx;
-  width: 100%;
-  top:0;
-  background-color: white
-}
-
-.top .search{
+ .search{
   width: 90%;
   display: flex;
-  margin-left: 5%;  
+  margin:10rpx 0 0 5%;  
   border: 1px solid white;
-  background-color:  rgb(241, 241,243);
+  border-radius: 5px;
+  background-color: white;
   align-items: center;
   font-family: FontAwesome;
+  z-index: 5;
 }
 
-.top .search .search_icon{
+.search .search_icon{
     margin: 20rpx;
+    width: 40rpx; 
 }
 
-.top .search input{
+ .search .input{
   width: 100%;
   font-size: 30rpx;
 }
 /*  */
+#myMap{
+  height: 100vh;
+  width: 100%;
+}
+/*  */
 
 .show{
-  margin-top: 300rpx;
-  font-family: MicroSoft Yahei;
-  font-size:24rpx;
-  background-color: white;
+  background-color: transparent;
+  position: absolute;
+  bottom: 35vh;
 }
 
 .hide{
   position: absolute;
-  bottom:0;
-  font-family: MicroSoft Yahei;
-  font-size:24rpx;
+  bottom:20rpx;
   width: 100%;
-  background-color: white;
+}
 
+.locate{
+  width:40rpx;
+  height:40rpx;
+  padding: 10rpx;
+  border:1px solid white;
+  border-radius: 20rpx;
+  background-color: white;
+  margin: 10rpx;
 }
 
 .up_down{
-  width: 50rpx;
-  height: 50rpx;
-  vertical-align: middle;
+  position: absolute;
+  bottom:45vh;
+  width: 40rpx;
+  height: 40rpx;
+  padding: 10rpx;
+  border:1px solid white;
+  border-radius: 20rpx;
+  background-color: white;
+  margin: 10rpx;
+}
+/* 路线框 */
+.pic{
+  display: block;
+  position: absolute;
+  bottom:0;
+  width: 100%;
 }
 
-.whole_show{
-  height: 200px;
-  /* height: 200px; 100%; */
+
+
+.scroll{
+  height: 40vh;
+
   background-color: rgb(241, 241,243);
-}
-.whole_hide{
-  display: none;
 }
 
 .block_show{
-  height: 150rpx;
-  margin: 10rpx;
+  height: 100rpx;
   background-color: white;
-  border: 1px solid white;
-  border-radius:3%;
+  width: 100%;
+  border-bottom: 1px solid gray;
 }
 
-.block_hide{
-  display: none;
+.block_show text{
+  position: relative;
+  top:20rpx;
+  left:20rpx;
 }
 
 .collect{
   height: 50rpx;
   width: 50rpx;
-  position:absolute;
-  right: 50rpx;
+  position:relative;
+  left: 79.3%;
+  top:30rpx;
 }
 
 .collect_hide{
   display: none;
-  height: 50rpx;
-  width: 50rpx;
-  position:absolute;
-  right: 50rpx;
 }
 
 ::-webkit-scrollbar{
@@ -92,3 +106,38 @@
     height: 0;
     color: transparent;
 }
+
+/* 地点信息 */
+
+.location_info{
+  height: 19vh;
+  width: 100%;
+  background-color: white;
+  border-bottom: 1px solid gray;
+}
+.location_info .info{
+  margin: 20rpx 0 0 20rpx;
+  width: 80%;
+  float: left;
+}
+
+.location_info .guide{
+  position: absolute;
+  right: 26rpx;
+  height: 80rpx;
+  width: 80rpx;
+}
+
+
+.location_info .collect_locate{
+  position: absolute;
+  right:40rpx;
+  top:120rpx;
+  height: 50rpx;
+  width: 50rpx;
+}
+
+.location_info .collect_locate_hide{
+  display: none;
+}
+
