@@ -1,2 +1,26 @@
 <!--pages/routine/routine.wxml-->
-<text>pages/routine/routine.wxml</text>
+<view class="father">
+  <view class="title">
+    <text>路线</text>
+    <image src="../../image/search.png"></image>
+  </view>
+  <view class="search">
+    <view class="start">
+      <input  placeholder="我的位置"></input>
+    </view>
+    <view class="destination">
+      <input  placeholder="输入终点"></input>
+    </view>
+    <button></button>
+  </view>
+  <view class="bt">
+    <text>搜索历史</text>
+    <image src="../../image/delete.png"></image>
+  </view>
+  <view class="history" >
+    <view wx:for="{{history_routine}}">
+      <icon type="waitting"></icon>
+      <text>{{item.start}}——>{{item.destination}}</text>
+    </view>
+  </view>
+</view>

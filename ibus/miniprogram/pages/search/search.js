@@ -16,47 +16,43 @@ Page({
     station_number: 3,
     place_number: 3,
   },
-  loghistory(){
-    wx.switchTab({
-      url: '../index/index',
-    })
-  },
 
   //TODO
   get_search:function(e){
     //app.globalData.search_place = e.detail.value
-    qqmapsdk.getSuggestion({
-      keyword: e.detail.value,
-      region: this.data.searchCity,
-      filter: encodeURI("category=公交车站"),
-      success: function (res) {
-        console.log(res);
-        var sug=[];
-        /*for (var i = 0; i < res.data.length; i++) {
-          sug.push({ // 获取返回结果，放到sug数组中
-            title: res.data[i].title,
-            id: res.data[i].id,
-            addr: res.data[i].address,
-            city: res.data[i].city,
-            district: res.data[i].district,
-            latitude: res.data[i].location.lat,
-            longitude: res.data[i].location.lng
-          });
-        }*/
-      },
-      fail: function (error) {
-        //console.error(error);
-      },
-      complete: function (res) {
-        //console.log(res);
-      }
-    })
-  },
-  Routine:function(){
+    // qqmapsdk.getSuggestion({
+    //   keyword: e.detail.value,
+    //   region: this.data.searchCity,
+    //   filter: encodeURI("category=公交车站"),
+    //   success: function (res) {
+    //     console.log(res);
+    //     var sug=[];
+    //     /*for (var i = 0; i < res.data.length; i++) {
+    //       sug.push({ // 获取返回结果，放到sug数组中
+    //         title: res.data[i].title,
+    //         id: res.data[i].id,
+    //         addr: res.data[i].address,
+    //         city: res.data[i].city,
+    //         district: res.data[i].district,
+    //         latitude: res.data[i].location.lat,
+    //         longitude: res.data[i].location.lng
+    //       });
+    //     }*/
+    //   },
+    //   fail: function (error) {
+    //     //console.error(error);
+    //   },
+    //   complete: function (res) {
+    //     //console.log(res);
+    //   }
+    // })
 
+    // 让站点信息界面显示出来
+    app.globalData.show_info=true
     wx.switchTab({
-      url: '../index/index' ,
+      url: '../index/index'
     })
+    
   },
 
   onLoad: function (options) {

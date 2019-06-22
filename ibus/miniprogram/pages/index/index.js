@@ -17,30 +17,28 @@ Page({
     city:"武汉",
     bus:[
       {
-        bus_number: "781", destination: "武汉大学", station: "珞瑜东路佳园站", accuracy: "", wait_time: "45", collected: false
+        bus_number: "781", collected: false
       }, 
       {
-        bus_number: "781", destination: "武汉大学", station: "珞瑜东路佳园站", accuracy: "", wait_time: "45", collected: false
-      },
+        bus_number: "781", collected: false
+      }, 
       {
-        bus_number: "781", destination: "武汉大学", station: "珞瑜东路佳园站", accuracy: "", wait_time: "45", collected: false
-      },
+        bus_number: "781", collected: false
+      }, 
       {
-        bus_number: "781", destination: "武汉大学", station: "珞瑜东路佳园站", accuracy: "", wait_time: "45", collected: false
-      },
+        bus_number: "781", collected: false
+      }, 
       {
-        bus_number: "781", destination: "武汉大学", station: "珞瑜东路佳园站", accuracy: "", wait_time: "45", collected: false
-      },
+        bus_number: "781", collected: false
+      }, 
       {
-        bus_number: "781", destination: "武汉大学", station: "珞瑜东路佳园站", accuracy: "", wait_time: "45", collected: false
-      },
+        bus_number: "781", collected: false
+      }, 
       {
-        bus_number: "781", destination: "武汉大学", station: "珞瑜东路佳园站", accuracy: "", wait_time: "45", collected: false
-      },
-      {
-        bus_number: "781", destination: "武汉大学", station: "珞瑜东路佳园站", accuracy: "", wait_time: "45", collected: false
-      },],
-    show:true,
+        bus_number: "781", collected: false
+      }, ],
+    location:{name:"华中科技大学",distance:"20m",position:"武汉洪山区珞喻路关山口",type:"大学",collected:false},
+    show1:false,
     place:'',
     scrollTop:0,
 
@@ -162,10 +160,11 @@ Page({
       },
       fail:function(res){
         util.logError("位置坐标获取失败");
-      }
+      },
+     
     })
-    
-  },
+
+},
   //事件处理函数
   bindViewTap: function() {
     wx.navigateTo({
@@ -182,11 +181,11 @@ Page({
 
   },
   Switch_show:function(){
-    var show_hidden=this.data.show
+    var show_hidden=this.data.show1
     this.setData({
-       show:(!show_hidden)
+       show1:(!show_hidden)
     })
-    console.log(this.data.show)
+    console.log(app.globalData.show_info)
   },
   Collect_routine:function (e){
     var that=this
@@ -208,6 +207,26 @@ Page({
     }
   },
   Select_routine:function() {
+    wx.navigateTo({
+      url: '../routine/routine',
+    })
+  },
+  Collect_location:function(){
+    var that=this
+    var collected =!this.data.location.collected
+    var key = "location.collected"
+    if (collected==false){
+       this.setData({
+         [key]: collected
+       })
+      }
+      else{
+        this.setData({
+          [key]: collected
+        })
+      }
+  },
+  Guide: function () {
     wx.navigateTo({
       url: '../routine/routine',
     })

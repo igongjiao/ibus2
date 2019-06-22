@@ -1,11 +1,11 @@
 {
   "pages": [
-      "pages/search/search",
     "pages/main/main",
     "pages/index/index",
     "pages/logs/logs",
     "pages/user/user",
     "pages/collect/collect",
+    "pages/search/search",
     "pages/extent/extent",
     "pages/routine/routine"
   ],
@@ -25,20 +25,20 @@
       {
         "pagePath": "pages/index/index",
         "text": "首页",
-        "iconPath": "image/wechat.png",
-        "selectedIconPath": "image/wechatHL.png"
+        "iconPath": "image/home.png",
+        "selectedIconPath": "image/home_selected.png"
       },
       {
         "pagePath": "pages/logs/logs",
         "text": "扩展",
-        "iconPath": "image/wechat.png",
-        "selectedIconPath": "image/wechatHL.png"
+        "iconPath": "image/extend.png",
+        "selectedIconPath": "image/extend_selected.png"
       },
       {
         "pagePath": "pages/user/user",
         "text": "我的",
-        "iconPath": "image/wechat.png",
-        "selectedIconPath": "image/wechatHL.png"
+        "iconPath": "image/user.png",
+        "selectedIconPath": "image/user_selected.png"
       }
     ]
   },

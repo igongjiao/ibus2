@@ -75,35 +75,67 @@
 }
 
 .block_show{
-  height: 150rpx;
-  margin: 10rpx;
+  height: 100rpx;
   background-color: white;
-  border: 1px solid white;
-  border-radius:3%;
+  width: 100%;
+  border-bottom: 1px solid gray;
 }
 
-.block_hide{
-  display: none;
+.block_show text{
+  position: relative;
+  top:20rpx;
+  left:20rpx;
 }
 
 .collect{
   height: 50rpx;
   width: 50rpx;
   position:absolute;
-  right: 50rpx;
+  left: 40rpx;
+  top:30rpx;
 }
 
 .collect_hide{
   display: none;
-  height: 50rpx;
-  width: 50rpx;
-  position:absolute;
-  right: 50rpx;
 }
 
 ::-webkit-scrollbar{
     width: 0;
     height: 0;
     color: transparent;
+}
+
+/* 地点信息 */
+
+.location_info{
+  height: 19vh;
+  width: 100%;
+  background-color: white;
+  border-bottom: 1px solid gray;
+}
+.location_info .info{
+  margin: 20rpx 0 0 20rpx;
+  width: 80%;
+  float: left;
+}
+
+.location_info .guide{
+  position: absolute;
+  right: 26rpx;
+  height: 80rpx;
+  width: 80rpx;
+}
+
+
+.location_info .collect_locate{
+  position: absolute;
+  right:40rpx;
+  top:120rpx;
+  height: 50rpx;
+  width: 50rpx;
+}
+
+.location_info .collect_locate_hide{
+  display: none;
 }
 

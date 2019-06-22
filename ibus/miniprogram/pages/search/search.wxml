@@ -8,8 +8,8 @@
   <view class="text">线路</view>
   <view wx:for="{{history_routines}}" >
     <view wx:if="{{index<routine_number}}" class="place" bindtap="get_search">
-      <image src="../../image/busicon.png"></image>
-      <view id="name">{{item.start}}</view>
+      <image src="../../image/routine.png"></image>
+      <view id="name">{{item.start}}————>{{item.destination}}</view>
     </view>
   </view>
    <view  class="check" bindtap="check_more1">
@@ -36,7 +36,7 @@
   <view class="text">到这去</view>
   <view wx:for="{{history_places}}" >
     <view wx:if="{{index<place_number}}" class="place" bindtap="get_search">
-      <image src="../../image/busicon.png"></image>
+      <image src="../../image/place.png"></image>
       <view id="name">{{item.name}}</view>
     </view>
   </view>
