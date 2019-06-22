@@ -12,6 +12,10 @@ let qqmapsdk = new QQMapWX({
 //获取应用实例
 var app = getApp()
 app.globalData.qqmapsdk = qqmapsdk;
+//地图动态更新使用的参数
+var mapLoadCountdown = 4;
+var mapRefreshCountdown = 0;
+const markerLabelFontScale = 12;
 Page({
   data: {
     city: "武汉",
@@ -141,11 +145,12 @@ Page({
                   x: -res.data[i].title.length - 25,
                   y: 0,
                 },
+                stationID: res.data[i].id,
                 bus: res.data[i].address,
                 latitude: res.data[i].location.lat,
                 longitude: res.data[i].location.lng,
                 province: res.data[i].ad_info.province,
-                city: res.data[i].ad_info.city, 
+                city: res.data[i].ad_info.city,
                 district: res.data[i].ad_info.district,
                 iconPath: _page.data.busicon,
                 alpha: 0.7,
@@ -195,6 +200,86 @@ Page({
   },
 
   //事件处理函数
+  RefreshMapMarkers: function(e) {
+    let _page = this;
+    if (e.type=="begin")return;
+    if (mapLoadCountdown>0){
+      mapLoadCountdown -=1;
+      return;
+    } 
+    // if (mapRefreshCountdown>0) {
+    //   mapRefreshCountdown -= 1;
+    //   return;
+    // } else { mapRefreshCountdown = 2;}
+
+    this.mapCtx = wx.createMapContext("myMap");
+    this.mapCtx.getCenterLocation({
+      type: 'gcj02',
+      success: function (resL) {
+        qqmapsdk.search({
+          keyword: '站',
+          page_size: 14,
+          location: {
+            latitude: resL.latitude,
+            longitude: resL.longitude
+          },
+          filter: encodeURI("category=公交车站"),
+          success: function (res) {
+            var mks = _page.data.markers;
+            let markersLength = _page.data.markers.length;
+            let num = 0;
+            if (mks.length > 35) {
+              console.log("mks.length>80")
+              mks = mks.slice(0,18);
+              markersLength = 18;
+            }
+            for (var i = 0; i < res.data.length; i++) {
+              let repeat = false;
+              for (var n = 0; n < markersLength;n++){
+                if (_page.data.markers[n].stationID == res.data[i].id) { repeat=true;break; }
+              }
+              if(repeat){
+                continue;
+              }
+              //console.log(_page.data.markerLabelScale);
+              mks.push({
+                id: num + markersLength,
+                //title: res.data[i].title,
+                label: {
+                  content: res.data[i].title.split("[")[0] + "站",
+                  color: "#424200",
+                  fontSize: _page.data.markerLabelScale,
+                  borderWidth: 0,
+                  x: -res.data[i].title.length - 25,
+                  y: 0,
+                },
+                stationID: res.data[i].id,
+                bus: res.data[i].address,
+                latitude: res.data[i].location.lat,
+                longitude: res.data[i].location.lng,
+                province: res.data[i].ad_info.province,
+                city: res.data[i].ad_info.city,
+                district: res.data[i].ad_info.district,
+                iconPath: _page.data.busicon,
+                alpha: 0.7,
+                width: _page.data.markerScale,
+                height: _page.data.markerScale,
+              });
+              num += 1;
+            }
+            _page.setData({
+              markers: mks,
+            });
+            console.log(mks);
+          },
+          fail: function (res) {
+            util.logError("车站信息获取失败");
+          }
+        });
+      }
+    });
+  },
+
   TapMapMarker: function(options) {
     let _page = this;
     //console.log(options.markerId);
@@ -242,7 +327,10 @@ Page({
 
   UnShowMapText: function() {
     let _page = this;
-    if (_page.data.markers[0].label.fontSize == 0) {
+    if (_page.data.markerLabelScale == 0) {
+      _page.setData({
+        markerLabelScale : markerLabelFontScale,
+      });
       for (var i = 0; i < _page.data.markers.length; i++) {
         let str = "markers[" + i + "].label.fontSize"
         _page.setData({
@@ -250,6 +338,9 @@ Page({
         });
       }
     } else {
+      _page.setData({
+        markerLabelScale: 0,
+      });
       for (var i = 0; i < _page.data.markers.length; i++) {
         let str = "markers[" + i + "].label.fontSize"
         _page.setData({
@@ -307,5 +398,6 @@ Page({
     wx.navigateTo({
       url: '../routine/routine',
     })
-  }
+  },
+
 })

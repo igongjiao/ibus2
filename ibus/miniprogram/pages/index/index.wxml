@@ -8,8 +8,8 @@
 </view>
 
 <!--地图容器-->
-<map id="myMap" style="width: 100%; height: 300px;" longitude="{{longitude}}" latitude="{{latitude}}" scale='{{scale}}' polyline="{{polyline}}" markers="{{markers}}" covers="{{covers}}" include-points="{{includePoints}}" bindmarkertap="TapMapMarker"  show-location="true"></map>
- <button  bindtap="RelocatingMapCenter"><image src="../../image/collect.png"></image></button>
+<map id="myMap" style="width: 100%; height: 300px;" longitude="{{longitude}}" latitude="{{latitude}}" scale='{{scale}}' polyline="{{polyline}}" markers="{{markers}}" covers="{{covers}}" include-points="{{includePoints}}" bindmarkertap="TapMapMarker"  show-location="true" bindregionchange="RefreshMapMarkers"></map>
+ <button  bindtap="UnShowMapText"><image src="../../image/collect.png"></image></button>
 
   <button class="{{show==true?'show':'hide'}}" bindtap="Switch_show"><image src="../../image/{{show==true?'down.png':'up.png'}}" class="up_down"></image></button>
   <scroll-view scroll-y="true" class="{{show==true?'whole_show':'whole_hide'}}"  scroll-top="{{scrollTop}}" >

@@ -1,5 +1,8 @@
 // pages/search/search.js
-var app=getApp();
+//引入工具类
+const util = require('../../utils/util.js')
+
+var app = getApp();
 var qqmapsdk = app.globalData.qqmapsdk;
 Page({
 
@@ -7,55 +10,127 @@ Page({
    * 页面的初始数据
    */
   data: {
-    history_places: [{ name: "武汉大学" }, { name: "武汉大学" }, { name: "武汉大学" }, { name: "武汉大学" }, { name: "武汉大学" }, { name: "武汉大学" },],
-  
-    searchProvince:"",//"湖北省",
-    searchCity:"",//"武汉市",
+    history_places: [{
+      name: "武汉大学"
+    }, {
+      name: "武汉大学"
+    }, {
+      name: "武汉大学"
+    }, {
+      name: "武汉大学"
+    }, {
+      name: "武汉大学"
+    }, {
+      name: "武汉大学"
+    }, ],
+
+    searchProvince: "", //"湖北省",
+    searchCity: "", //"武汉市",
+
+
+
+    searchTitle: "",
+
+    startLocation: {
+      searchTitle: "",
+      latitude: 0,
+      longitude: 0,
+    },
+    endLocation: {
+      searchTitle: "",
+      latitude: 0,
+      longitude: 0,
+    },
+
   },
-  loghistory(){
+  loghistory() {
     wx.switchTab({
       url: '../index/index',
     })
   },
 
   //TODO
-  get_search:function(e){
-    //app.globalData.search_place = e.detail.value
+  get_search: function(e) {
+    let _page = this;
     qqmapsdk.getSuggestion({
-      keyword: e.detail.value,
+      keyword: "513", //e.detail.value,
       region: this.data.searchCity,
-      filter: encodeURI("category=公交车站"),
-      success: function (res) {
+      page_size: 20,
+      page_index: 1,
+      region_fix: 1,
+      filter: encodeURI("category=线路"),
+      success: function(res) {
         console.log(res);
-        var sug=[];
-        /*for (var i = 0; i < res.data.length; i++) {
-          sug.push({ // 获取返回结果，放到sug数组中
-            title: res.data[i].title,
-            id: res.data[i].id,
-            addr: res.data[i].address,
-            city: res.data[i].city,
-            district: res.data[i].district,
-            latitude: res.data[i].location.lat,
-            longitude: res.data[i].location.lng
-          });
-        }*/
+        if (res.data.length == 0) return;
+        let str = res.data[0].address.split("--");
+        _page.setData({
+          searchTitle: res.data[0].title,
+          "startLocation.searchTitle": str[0],
+          "endLocation.searchTitle": str[1],
+        });
       },
-      fail: function (error) {
-        //console.error(error);
-      },
-      complete: function (res) {
-        //console.log(res);
+      fail: function(error) {
+        util.logError("提示信息获取失败");
       }
-    })
+    });
+
   },
-  Routine:function(){
+
+  searchInfo: function() {
+    let _page = this;
+    _page.searchStation(_page.data.startLocation.searchTitle, "startLocation.latitude", "startLocation.longitude");
+  },
+
+  searchStation(keyword, latStr, lngStr) {
+    let _page = this;
+    qqmapsdk.search({
+      keyword: keyword + "[公交站]",
+      region: this.data.searchCity,
+      page_size: 10,
+      page_index: 1,
+      region_fix: 1,
+      filter: encodeURI("category=公交车站"),
+      success: function(res) {
+        console.log(res);
+        let foundIndex = -1;
+        for (var i = 0; i < res.data.length; i++) {
+          if (res.data[i].address.indexOf(_page.data.searchTitle) != -1 && res.data[i].title.indexOf(keyword) != -1) {
+            foundIndex = i;
+            break;
+          }
+        }
+        if (foundIndex == -1) {
+          util.logError("车站信息获取失败");
+          return;
+        }
+        _page.setData({
+          [latStr]: res.data[i].location.lat,
+          [lngStr]: res.data[i].location.lng,
+        });
+
+        if (latStr == "startLocation.latitude") {
+          _page.searchStation(_page.data.endLocation.searchTitle, "endLocation.latitude", "endLocation.longitude")
+        } else {
+          console.log(_page.data.startLocation);
+          console.log(_page.data.endLocation);
+          //页面跳转TODO
+        }
+      },
+      fail: function(error) {
+        util.logError("车站获取失败");
+        return;
+      }
+    });
+    return;
+  },
+  Routine: function() {
 
     wx.switchTab({
-      url: '../index/index' ,
+      url: '../index/index',
     })
   },
 
-  onLoad: function (options) {
+  onLoad: function(options) {
     let _page = this;
     wx.getStorage({
       key: 'searchRegion',
@@ -68,8 +143,8 @@ Page({
       }
     })
   },
-  
-  onShow:function(options){
+
+  onShow: function(options) {
 
   },
 

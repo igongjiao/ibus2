@@ -1,7 +1,7 @@
 <!--pages/search/search.wxml-->
 <view class="top" >
   <view class="search" bindtap="Search">
-    <input class="" placeholder="搜索公交路线、车站、地点" bindinput="get_search" ></input>
+    <input class="" placeholder="搜索公交路线、车站、地点" bindinput="get_search"bindconfirm="searchInfo" ></input>
     <icon type="search" bindtap="Routine"></icon>
   </view>
 </view>
