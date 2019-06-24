@@ -4,13 +4,13 @@
   <text bindtap="get_search">查询</text>
 </view>
 <view wx:for="{{searchSuggests}}" wx:for-item="sug">
-<text class="log-item"bindtap="changeInput"id="{{sug}}">{{sug}}</text></view>
+<text class="log-item"bindtap="changeInput"id="{{sug.id}}">{{sug.title}}---{{sug.city}}</text></view>
 <view class="routine">
   <view class="text">线路</view>
-  <view wx:for="{{history_routines}}" >
-    <view wx:if="{{index<routine_number}}" class="place" bindtap="get_search">
+  <view wx:for="{{searchBus}}" wx:for-item="bus">
+    <view wx:if="{{bus.id<routine_number}}" class="place" bindtap="get_search">
       <image src="../../image/routine.png"></image>
-      <view id="name">{{item.start}}————>{{item.destination}}</view>
+      <view id="{{bus.id}}">{{bus.title}}|{{bus.city}}|{{bus.startStation}}————>{{bus.endStation}}</view>
     </view>
 
   </view>
@@ -22,10 +22,10 @@
 
 <view class="routine">
   <view class="text">站点</view>
-  <view wx:for="{{history_stations}}" >
-    <view wx:if="{{index<station_number}}" class="place" bindtap="get_search">
+  <view wx:for="{{searchStation}}" wx:for-item="station">
+    <view wx:if="{{station.id<station_number}}" class="place" bindtap="changePage">
       <image src="../../image/busicon.png"></image>
-      <view id="name">{{item.name}}</view>
+      <view id="{{station.id}}">{{station.title}}|{{station.city}}|<!--{{station.bus}}--></view>
     </view>
   </view>
    <view  class="check" bindtap="check_more2">
@@ -36,10 +36,10 @@
 
 <view class="routine">
   <view class="text">到这去</view>
-  <view wx:for="{{history_places}}" >
-    <view wx:if="{{index<place_number}}" class="place" bindtap="get_search">
+  <view wx:for="{{searchPoint}}" wx:for-item="location">
+    <view wx:if="{{location.id<place_number}}" class="place" bindtap="get_search">
       <image src="../../image/place.png"></image>
-      <view id="name">{{item.name}}</view>
+      <view id="{{location.id}}">{{location.title}}|{{location.city}}|<!--{{location.address}}--></view>
     </view>
   </view>
    <view  class="check" bindtap="check_more3">
