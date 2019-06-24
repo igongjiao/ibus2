@@ -32,6 +32,13 @@ App({
         }
       }
     })
+    wx.cloud.init({
+
+      env: 'igongjiao-9og0k',
+
+      traceUser: true
+
+    })
   },
 
   

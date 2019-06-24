@@ -77,7 +77,14 @@ Page({
    * 生命周期函数--监听页面加载   获取用户当前位置
    */
   onLoad: function(options) {
-    wx.cloud.init();
+
+    /*wx.cloud.init({
+
+      env: 'igongjiao-9og0k',
+
+      traceUser: true
+
+    });*/
     let _page = this;
     //获取用户坐标经纬度
     wx.getLocation({
@@ -403,15 +410,36 @@ Page({
   },
 
   Collect_location:function(){
+    const db = wx.cloud.database()
+    const _ = db.command
+    var station = this.data.stationInfo.title
     var that=this
     var collected =!this.data.location.collected
     var key = "location.collected"
     if (collected==false){
-       this.setData({
+      db.collection('something').doc(
+        db.collection('something').where({
+          _openid: _.eq(openid),
+        station: station
+      }).get(_id)).remove
+      this.setData({
          [key]: collected
        })
       }
       else{
+      
+      console.log(station);
+      
+      db.collection('something').add({
+        // data 字段表示需新增的 JSON 数据        
+        data: {
+          station: station,
+        }, success: function (res) {
+          // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id          
+          console.log(res);
+          console.log(res.errMsg);
+        }
+      });
         this.setData({
           [key]: collected
         })
