@@ -65,7 +65,7 @@ Page({
 * 生命周期函数--监听页面加载   获取用户当前位置
 */
   onLoad: function (options) {
-    wx.cloud.init();
+    //wx.cloud.init();
     let _page = this;
     //获取用户坐标经纬度
     wx.getLocation({

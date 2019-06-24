@@ -64,7 +64,7 @@ Page({
 
     const _ = db.command;
 
-    db.collection('something').where({
+    /*db.collection('something').where({
 
       userName: _.eq(userName)
 
@@ -84,7 +84,7 @@ Page({
 
       }
 
-    })  
+    }) */ 
     db.collection('something').add({        
       // data 字段表示需新增的 JSON 数据        
       data: {          
