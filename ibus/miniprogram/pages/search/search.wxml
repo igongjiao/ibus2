@@ -1,6 +1,6 @@
 <!--pages/search/search.wxml-->
 <view class="top" >
-  <input placeholder="搜索公交路线、车站、地点"></input>
+  <input placeholder="搜索公交路线、车站、地点" bindinput="get_search" bindconfirm="searchInfo"></input>
   <text bindtap="get_search">查询</text>
 </view>
 

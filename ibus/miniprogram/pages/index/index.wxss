@@ -28,7 +28,6 @@
 /*  */
 
 .show{
-  background-color: transparent;
   position: absolute;
   bottom: 35vh;
 }

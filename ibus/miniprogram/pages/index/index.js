@@ -375,7 +375,7 @@ Page({
     this.setData({
       show1: (!show_hidden)
     })
-    console.log(app.globalData.show_info)
+    //console.log(app.globalData.show_info)
   },
   Collect_routine: function(e) {
     var that = this
