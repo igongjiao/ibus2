@@ -22,6 +22,10 @@ Page({
     searchCity: "", //"武汉市",
 
     searchTitle: "",
+    searchSuggests:[],
+    searchStation:[],
+    searchBus:[],
+    searchPoint:[],
 
     startLocation: {
       searchTitle: "",
@@ -42,84 +46,78 @@ Page({
   },
 
   //TODO
+  changeInput: function (e) {
+    let _page = this;
+    //console.log(e.currentTarget.id)
+    _page.setData({
+      searchTitle: e.currentTarget.id,
+      searchSuggests:[]
+    });
+  },
+
   get_search: function(e) {
     let _page = this;
+    _page.setData({
+      searchTitle: e.detail.value,
+      searchSuggests:[],
+    });
+
     qqmapsdk.getSuggestion({
-      keyword: "513", //e.detail.value,
+      keyword: e.detail.value,
       region: this.data.searchCity,
-      page_size: 20,
+      page_size: 10,
       page_index: 1,
-      region_fix: 1,
-      filter: encodeURI("category=线路"),
+      //region_fix: 1,
+      //filter: encodeURI("category=线路"),
       success: function(res) {
         console.log(res);
-        if (res.data.length == 0) return;
-        let str = res.data[0].address.split("--");
+        let suggest=[];
+        for(var i=0;i<res.data.length && i<9;i++){
+          suggest.push({
+            title:res.data[i].title,
+            city: res.data[i].city,
+          });
+        }
         _page.setData({
-          searchTitle: res.data[0].title,
-          "startLocation.searchTitle": str[0],
-          "endLocation.searchTitle": str[1],
+          searchSuggests:suggest
         });
       },
       fail: function(error) {
         util.logError("提示信息获取失败");
       }
     });
-
   },
 
+  //TODO
   searchInfo: function() {
     let _page = this;
-    _page.searchStation(_page.data.startLocation.searchTitle, "startLocation.latitude", "startLocation.longitude");
-
-    //数据可能未加载完成TODO
-    wx.switchTab({
-      url: '../index/index',
-    })
-
-  },
-
-  searchStation(keyword, latStr, lngStr) {
-    let _page = this;
     qqmapsdk.search({
-      keyword: keyword + "[公交站]",
+      keyword: _page.data.searchTitle,
       region: this.data.searchCity,
-      page_size: 10,
+      page_size: 20,
       page_index: 1,
-      region_fix: 1,
-      filter: encodeURI("category=公交车站"),
-      success: function(res) {
+      //region_fix: 1,
+      //filter: encodeURI("category=公交车站"),
+      success: function (res) {
         console.log(res);
-        let foundIndex = -1;
-        for (var i = 0; i < res.data.length; i++) {
-          if (res.data[i].address.indexOf(_page.data.searchTitle) != -1 && res.data[i].title.indexOf(keyword) != -1) {
-            foundIndex = i;
-            break;
-          }
-        }
-        if (foundIndex == -1) {
-          util.logError("车站信息获取失败");
+        if (res.data.length <= 0) {
+          util.logError("搜素信息无结果");
           return;
         }
-        _page.setData({
-          [latStr]: res.data[i].location.lat,
-          [lngStr]: res.data[i].location.lng,
-        });
 
-        if (latStr == "startLocation.latitude") {
-          _page.searchStation(_page.data.endLocation.searchTitle, "endLocation.latitude", "endLocation.longitude")
-        } else {
-          console.log(_page.data.startLocation);
-          console.log(_page.data.endLocation);
-          //页面跳转TODO
-        }
       },
-      fail: function(error) {
-        util.logError("车站获取失败");
+      fail: function (error) {
+        util.logError("搜素信息获取失败");
         return;
       }
     });
-    return;
+
+
+    //数据可能未加载完成TODO
+    // wx.switchTab({
+    //   url: '../index/index',
+    // })
+
   },
 
 

@@ -1,9 +1,10 @@
 <!--pages/search/search.wxml-->
 <view class="top" >
-  <input placeholder="搜索公交路线、车站、地点" bindinput="get_search" bindconfirm="searchInfo"></input>
+  <input placeholder="搜索公交路线、车站、地点" bindinput="get_search" bindconfirm="searchInfo" value='{{searchTitle}}'></input>
   <text bindtap="get_search">查询</text>
 </view>
-
+<view wx:for="{{searchSuggests}}" wx:for-item="sug">
+<text class="log-item"bindtap="changeInput"id="{{sug}}">{{sug}}</text></view>
 <view class="routine">
   <view class="text">线路</view>
   <view wx:for="{{history_routines}}" >
