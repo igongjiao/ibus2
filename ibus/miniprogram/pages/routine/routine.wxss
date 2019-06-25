@@ -8,6 +8,7 @@
 .title{
  height: 100rpx;
  width: 100%;
+ padding-top: 20rpx;
  background-color: white;
 }
 .title text{
@@ -23,34 +24,66 @@
 }
 /*  */
 .search{
-  padding: 10rpx 5% 20rpx 5%;
+  padding: 0 5% 20rpx 5%;
   width: 90%;
-  border: 1px solid white;
-  border-radius:5%;
   background-color: white; 
 }
+.search .rectangle{
+  display: flex;
+  flex-direction: row;
+  border: 1px solid white;
+  border-radius: 5%;
+  background-color: rgb(226, 226, 229);
+  height: 160rpx;
+  width: 100%;
+}
 .search .start{
-  background-color: gray;
   border-bottom: 1px solid white; 
+  height: 80rpx;
+  width: 100%;
 }
 .search .destination{
-  background-color: gray;
+  height: 80rpx;
+  width: 100%;
+}
+
+.change{
+  width: 100rpx;
+  height: 70rpx;
+  border: 1px solid white;
+  border-radius: 100%;
+  background-color: white;
+  margin: 45rpx  0 0 15rpx;
 }
 /*  */
 .bt{
   margin: 20rpx;
   font-size: 25rpx;
+  color: gray;
   width: 80%;
 }
 .bt image{
-  float: right;
-  height: 50rpx;
-  width: 50rpx;
+  position: absolute;
+  right: 33rpx;
+  height: 40rpx;
+  width: 40rpx;
 }
 /*  */
 .history{
   border: 1px solid white;
   border-radius: 5%;
-  width: 90%;
+  margin-top: 20rpx;
+  margin-left: 2%;
+  width: 96%;
+  font-size: 30rpx;
   background-color: white;
+}
+
+.history .routine{
+  height: 100rpx;
+  margin: 20rpx 0  20rpx 30rpx;
+}
+
+.history text{
+  margin: 0 0 0 20rpx;
 }

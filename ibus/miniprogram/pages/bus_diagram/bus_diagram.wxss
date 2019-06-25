@@ -1,0 +1,68 @@
+/* miniprogram/pages/bus_diagram/bus_diagram.wxss */
+.father{
+
+}
+.bus_info{
+ display: flex;
+ flex-direction: row;
+ width: 100%;
+ background-color:rgb(249, 249, 251);
+ padding: 20rpx;
+}
+
+.sd{
+  display: block;
+  font-size: 25rpx;
+  margin-bottom: 10rpx;
+}
+
+.tep{
+  display: block;
+  font-size: 20rpx;
+  color:gray;
+}
+
+.bus_info image{
+  position: absolute;
+  right: 40rpx;
+  top: 32rpx;
+  height: 40rpx;
+  width: 40rpx;
+}
+
+/*  */
+.diagram{
+ 
+}
+.diagram .scroll{
+ height: 500rpx;
+ width: 100%;
+ white-space: nowrap;
+}
+.diagram .item{
+ display: inline-block;
+}
+.diagram .pointer{
+  height: 30rpx;
+  width: 200rpx;
+}
+.diagram .name{
+  width: 150rpx;
+  height: 200rpx;
+  margin: 0 20rpx 0 20rpx;
+  text-align: center;
+  font-size: 35rpx;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  white-space: normal !important;
+  -webkit-line-clamp: 7;
+  -webkit-box-orient: vertical;
+}
+
+::-webkit-scrollbar{
+    width: 0;
+    height: 0;
+    color: transparent;
+}

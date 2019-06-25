@@ -4,10 +4,11 @@
     "pages/index/index",
     "pages/logs/logs",
     "pages/user/user",
+    "pages/bus_diagram/bus_diagram",
     "pages/collect/collect",
     "pages/search/search",
     "pages/extent/extent",
-    "pages/routine/routine"
+     "pages/routine/routine"
   ],
   "window": {
     "backgroundTextStyle": "light",
