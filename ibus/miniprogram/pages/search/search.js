@@ -70,17 +70,6 @@ Page({
     searchBus: [],
     searchPoint: [],
 
-    startLocation: {
-      searchTitle: "",
-      latitude: 0,
-      longitude: 0,
-    },
-    endLocation: {
-      searchTitle: "",
-      latitude: 0,
-      longitude: 0,
-    },
-
   },
   loghistory() {
     wx.switchTab({
@@ -274,6 +263,19 @@ Page({
 
   //TODO
   switchBusPage(e) {
+    let idnum = e.target.id;
+    let _page = this;
+    let busInfo = {
+      fullInfo: true,
+      title: _page.data.searchBus[idnum].title,
+      city: _page.data.searchBus[idnum].city,
+      startStation: _page.data.searchBus[idnum].startStation,
+      endStation: _page.data.searchBus[idnum].endStation,
+    };
+    app.globalData.selectBus = busInfo;
+    wx.navigateTo({
+      url: '../bus_diagram/bus_diagram',
+    })
   },
 
   check_more1: function(options) {

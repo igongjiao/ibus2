@@ -90,6 +90,9 @@ Page({
       distance: 0,
       duration: 0,
       busList: [],
+      province: "",
+      city: "",
+      district: "",
     },
   },
 
@@ -146,7 +149,7 @@ Page({
           },
           filter: encodeURI("category=公交车站"),
           success: function(res) {
-            console.log(res);
+            //console.log(res);
             var mks = [];
             var includeP = [];
             for (var i = 0; i < res.data.length; i++) {
@@ -261,6 +264,7 @@ Page({
       _page.TapMapMarker({
         markerId: markerNum
       });
+      app.globalData.selectStation = null;
     }
   },
 
@@ -354,7 +358,7 @@ Page({
             _page.setData({
               markers: mks,
             });
-            console.log(mks);
+            //console.log(mks);
           },
           fail: function(res) {
             util.logError("车站信息获取失败");
@@ -385,7 +389,7 @@ Page({
         longitude: _page.data.markers[options.markerId].longitude
       }],
       success: function(res) {
-        console.log(res);
+        //console.log(res);
         var res = res.result;
         _page.setData({
           stationInfo: {
@@ -396,7 +400,7 @@ Page({
             city: _page.data.markers[options.markerId].city,
             district: _page.data.markers[options.markerId].district,
             distance: res.elements[0].distance,
-            duration: (res.elements[0].duration / 60 + 2).toFixed(2)
+            duration: (res.elements[0].duration * 5 / 60).toFixed(2)
           },
           show1: true
         });
@@ -489,10 +493,20 @@ Page({
       })
     }
   },
-  Select_bus: function() {
+  Select_bus: function(e) {
+    let busName = e.target.id;
+    let _page = this;
+    let busInfo = {
+      fullInfo: false,
+      title: busName,
+      city: _page.data.stationInfo.city,
+      startStation: "",
+      endStation: "",
+    };
+    app.globalData.selectBus = busInfo;
     wx.navigateTo({
       url: '../bus_diagram/bus_diagram',
-    })
+    });
   },
 
   Collect_location: function() {

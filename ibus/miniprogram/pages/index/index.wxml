@@ -33,7 +33,7 @@
       <cover-image class="{{location.collected==false?'collect_locate_hide':'collect_locate'}}" bindtap="Collect_location" src="../../image/selected_heart.png"></cover-image>
     </cover-view>
     <cover-view class="block_show" wx:for="{{stationInfo.busList}}" wx:for-item="bus">
-      <cover-view class="tx" bindtap="Select_bus">{{bus}}</cover-view>
+      <cover-view class="tx" bindtap="Select_bus" id="{{bus}}">{{bus}}</cover-view>
       <cover-image class="{{item.collected==false?'collect':'collect_hide'}}" bindtap="Collect_bus" src="../../image/heart.png" data-index="{{index}}"></cover-image>
       <cover-image class="{{item.collected==false?'collect_hide':'collect'}}" bindtap="Collect_bus" src="../../image/selected_heart.png" data-index="{{index}}"></cover-image>
     </cover-view>

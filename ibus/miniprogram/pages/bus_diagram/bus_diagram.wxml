@@ -5,7 +5,7 @@
       <view class="sd">{{bus_info.start}}—>{{bus_info.destination}}</view>
       <view class="tep">首{{bus_info.start_time}} 末{{bus_info.end_time}} 票价{{bus_info.price}}元</view>
     </view>
-    <image src="../../image/busicon.png"></image>
+    <image src="../../image/busicon.png" bindtap='testTap'></image>
  </view>
  <view style="width:100%;height:100rpx;font-size:50rpx;text-align:center;margin-top:30rpx;">总共{{station_number}}站</view>
  <view class="diagram">
