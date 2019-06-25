@@ -5,21 +5,21 @@
     <image src="../../image/search.png"></image>
   </view>
   <view class="search">
-    <view class="start">
-      <input  placeholder="我的位置"></input>
+    <view class="rectangle">
+      <view style="width:100%;margin-left:20rpx;">
+        <input class="start" placeholder="我的位置" ></input>
+        <input class="destination" placeholder="输入终点" ></input>
+      </view>
+      <image class="change" src="../../image/location.png" bindtap="search"></image>
     </view>
-    <view class="destination">
-      <input  placeholder="输入终点"></input>
-    </view>
-    <button></button>
   </view>
   <view class="bt">
     <text>搜索历史</text>
-    <image src="../../image/delete.png"></image>
+    <image src="../../image/delete.png" bindtap="Delete_history"></image>
   </view>
   <view class="history" >
-    <view wx:for="{{history_routine}}">
-      <icon type="waitting"></icon>
+    <view class="routine" wx:for="{{history_routine}}">
+      <icon  type="waiting" size="15" color="gray" style="margin-top:18rpx;"></icon>
       <text>{{item.start}}——>{{item.destination}}</text>
     </view>
   </view>

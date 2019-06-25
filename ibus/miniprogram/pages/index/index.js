@@ -377,7 +377,7 @@ Page({
     })
     //console.log(app.globalData.show_info)
   },
-  Collect_routine: function(e) {
+  Collect_bus: function(e) {
     var that = this
     var index = parseInt(e.currentTarget.dataset.index)
     var x = !this.data.bus[index].collected
@@ -396,9 +396,9 @@ Page({
       })
     }
   },
-  Select_routine: function() {
+  Select_bus: function() {
     wx.navigateTo({
-      url: '../routine/routine',
+      url: '../bus_diagram/bus_diagram',
     })
   },
 

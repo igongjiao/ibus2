@@ -1,41 +1,42 @@
 <!--index.wxml-->
 
 <!--地图容器-->
-<map id="myMap" longitude="{{longitude}}" latitude="{{latitude}}" scale='{{scale}}' polyline="{{polyline}}" markers="{{markers}}" covers="{{covers}}" include-points="{{includePoints}}" bindregionchange="RefreshMapMarkers"bindmarkertap="TapMapMarker"    show-location>
-    <cover-view class="search" bindtap="Search">
-      <cover-image class="search_icon" src="../../image/search.png"></cover-image>  
-      <cover-view class="input" >搜索公交路线、车站、地点 </cover-view>
-    </cover-view>
-    <cover-image class="up_down"  src="../../image/{{show1==true?'down.png':'up.png'}}" bindtap="Switch_show" ></cover-image>
-    <cover-view class="{{show1==true?'show':'hide'}}">
-      <cover-image class="locate" src="../../image/location.png" bindtap="RelocatingMapCenter"></cover-image>
-      <cover-image class="locate" src="../../image/location.png" bindtap="UnShowMapText"></cover-image>
-    </cover-view>
+<map id="myMap" longitude="{{longitude}}" latitude="{{latitude}}" scale='{{scale}}' polyline="{{polyline}}" markers="{{markers}}" covers="{{covers}}" include-points="{{includePoints}}" bindregionchange="RefreshMapMarkers" bindmarkertap="TapMapMarker"
+  show-location>
+  <cover-view class="search" bindtap="Search">
+    <cover-image class="search_icon" src="../../image/search.png"></cover-image>
+    <cover-view class="input">搜索公交路线、车站、地点 </cover-view>
+  </cover-view>
+  <cover-view class="{{show1==true?'show':'hide'}}">
+    <cover-image class="up_down" src="../../image/{{show1==true?'down.png':'up.png'}}" bindtap="Switch_show"></cover-image>
+    <cover-image class="locate" src="../../image/location.png" bindtap="RelocatingMapCenter"></cover-image>
+    <cover-image class="locate" src="../../image/location.png" bindtap="UnShowMapText"></cover-image>
+  </cover-view>
 </map>
 
 <!-- 附近站点信息框 -->
-<canvas class="pic"  style="display:{{show1==true?'block':'none'}}" canvas-id="bus_station" >
-  <scroll-view scroll-y="true" class="scroll"  scroll-top="{{scrollTop}}" >
-  <!-- 地点显示框 -->
-    <cover-view class="location_info" >
+<cover-view class="pic" style="display:{{show1==true?'block':'none'}}" canvas-id="bus_station">
+  <cover-view  class="scroll" scroll-top="{{scrollTop}}">
+    <!-- 地点显示框 -->
+    <cover-view class="location_info">
       <cover-view class="info">
         <cover-view style="font-size:40rpx;">{{stationInfo.title}}</cover-view>
         <cover-view style="display:flex;flex-diretion:row;font-size:25rpx;padding:20rpx 0 20rpx 0">
-          <cover-view style="border-right:2px solid gray;padding-right:20rpx;">{{stationInfo.distance}}</cover-view>
-          <cover-view style="padding-left:20rpx;">{{stationInfo.duration}}</cover-view>
+          <cover-view style="border-right:2px solid gray;padding-right:20rpx;">{{stationInfo.distance}}米</cover-view>
+          <cover-view style="padding-left:20rpx;">{{stationInfo.duration}}分钟</cover-view>
         </cover-view>
         <!--<cover-view style="font-size:30rpx;">{{location.type}}</cover-view>-->
       </cover-view>
-      <cover-view class="guide"  bindtap="Guide">
-        <cover-image  src="../../image/guide.png"></cover-image>
+      <cover-view class="guide" bindtap="Guide">
+        <cover-image src="../../image/guide.png"></cover-image>
       </cover-view>
-      <cover-image class="{{location.collected==false?'collect_locate':'collect_locate_hide'}}" bindtap="Collect_location" src="../../image/heart.png" ></cover-image>
-      <cover-image class="{{location.collected==false?'collect_locate_hide':'collect_locate'}}" bindtap="Collect_location" src="../../image/selected_heart.png" ></cover-image>
+      <cover-image class="{{location.collected==false?'collect_locate':'collect_locate_hide'}}" bindtap="Collect_location" src="../../image/heart.png"></cover-image>
+      <cover-image class="{{location.collected==false?'collect_locate_hide':'collect_locate'}}" bindtap="Collect_location" src="../../image/selected_heart.png"></cover-image>
     </cover-view>
-    <view class="block_show" wx:for="{{stationInfo.busList}}"wx:for-item="bus" bindtap="Select_routine">
-        <text>{{bus}}</text>
-        <image class="{{item.collected==false?'collect':'collect_hide'}}" bindtap="Collect_routine" src="../../image/heart.png" data-index="{{index}}"  ></image>
-        <image class="{{item.collected==false?'collect_hide':'collect'}}" bindtap="Collect_routine" src="../../image/selected_heart.png" data-index="{{index}}" ></image>
-    </view>   
-  </scroll-view>
-</canvas>
+    <cover-view class="block_show" wx:for="{{stationInfo.busList}}" wx:for-item="bus">
+      <cover-view class="tx" bindtap="Select_bus">{{bus}}</cover-view>
+      <cover-image class="{{item.collected==false?'collect':'collect_hide'}}" bindtap="Collect_bus" src="../../image/heart.png" data-index="{{index}}"></cover-image>
+      <cover-image class="{{item.collected==false?'collect_hide':'collect'}}" bindtap="Collect_bus" src="../../image/selected_heart.png" data-index="{{index}}"></cover-image>
+    </cover-view>
+  </cover-view>
+</cover-view>

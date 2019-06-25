@@ -1,0 +1,20 @@
+<!--miniprogram/pages/bus_diagram/bus_diagram.wxml-->
+<view class="father">
+ <view class="bus_info">
+    <view >
+      <view class="sd">{{bus_info.start}}—>{{bus_info.destination}}</view>
+      <view class="tep">首{{bus_info.start_time}} 末{{bus_info.end_time}} 票价{{bus_info.price}}元</view>
+    </view>
+    <image src="../../image/busicon.png"></image>
+ </view>
+ <view style="width:100%;height:100rpx;font-size:50rpx;text-align:center;margin-top:30rpx;">总共{{station_number}}站</view>
+ <view class="diagram">
+  <scroll-view class="scroll" scroll-x>
+    <view class="item" wx:for="{{bus_stations}}">
+      <image class="pointer" src="../../image/pointer.jpg" ></image>
+      <text style="text-align:center;display:block;margin:20rpx 0 20rpx 0;">{{index+1}}</text>
+      <view class="name">{{item.stationName}}</view>
+    </view>
+  </scroll-view>
+ </view>
+</view>
