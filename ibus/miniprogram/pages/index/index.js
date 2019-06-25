@@ -18,29 +18,42 @@ var mapRefreshCountdown = 0;
 const markerLabelFontScale = 12;
 Page({
   data: {
-    bus: [
-      {
-        bus_number: "781", collected: false
+    bus: [{
+        bus_number: "781",
+        collected: false
       },
       {
-        bus_number: "781", collected: false
+        bus_number: "781",
+        collected: false
       },
       {
-        bus_number: "781", collected: false
+        bus_number: "781",
+        collected: false
       },
       {
-        bus_number: "781", collected: false
+        bus_number: "781",
+        collected: false
       },
       {
-        bus_number: "781", collected: false
+        bus_number: "781",
+        collected: false
       },
       {
-        bus_number: "781", collected: false
+        bus_number: "781",
+        collected: false
       },
       {
-        bus_number: "781", collected: false
-      },],
-    location: { name: "华中科技大学", distance: "20m", position: "武汉洪山区珞喻路关山口", type: "大学", collected: false },
+        bus_number: "781",
+        collected: false
+      },
+    ],
+    location: {
+      name: "华中科技大学",
+      distance: "20m",
+      position: "武汉洪山区珞喻路关山口",
+      type: "大学",
+      collected: false
+    },
     show1: false,
     place: '',
     scrollTop: 0,
@@ -59,6 +72,13 @@ Page({
 
     //地图中的图标
     markers: [],
+    mapCircle: [{
+      latitude: 0,
+      longitude: 0,
+      color: "#6666FFAA",
+      fillColor: "#6666FFAA",
+      radius: 15,
+    }],
     busicon: "../../image/busicon.png",
     //缩放视野以包含所有给定的坐标点
     includePoints: [],
@@ -105,12 +125,11 @@ Page({
               province: res.result.address_component.province,
               city: res.result.address_component.city,
             });
+            app.globalData.searchCity = res.result.address_component.city;
             wx.setStorageSync('searchRegion', {
               province: res.result.address_component.province,
               city: res.result.address_component.city,
             });
-            //console.log("Success");
-            //console.log(res.result.address_component.province);
           },
           fail: function(res) {
             util.logError("位置名称获取失败");
@@ -120,7 +139,7 @@ Page({
 
         qqmapsdk.search({
           keyword: '站',
-          page_size: 14,
+          page_size: 18,
           location: {
             latitude: res.latitude,
             longitude: res.longitude
@@ -178,9 +197,71 @@ Page({
       fail: function(res) {
         util.logError("位置坐标获取失败");
       },
-     
+
     })
 
+  },
+
+  //TODO
+  onShow: function(options) {
+    let _page = this;
+    if (app.globalData.selectStation != null) {
+      var selectStation = app.globalData.selectStation;
+      var mapMarkers = _page.data.markers;
+      var markerNum = -1;
+      console.log(app.globalData.selectStation);
+      for (var i = 0; i < mapMarkers.length; i++) {
+        if (selectStation.title == mapMarkers[i].label.content.slice(0, -1) &&
+          selectStation.location.latitude == mapMarkers[i].latitude &&
+          selectStation.location.longitude == mapMarkers[i].longitude) {
+          markerNum = i;
+          break;
+        }
+      }
+      if (markerNum == -1) {
+        if (mapMarkers.length > 18) {
+          mapMarkers = mapMarkers.slice(0, 18);
+        }
+
+        mapMarkers[17] = {
+          id: 17,
+          label: {
+            content: selectStation.title + "站",
+            color: "#424200",
+            fontSize: _page.data.markerLabelScale,
+            borderWidth: 0,
+            x: -selectStation.title.length - 25,
+            y: 0,
+          },
+          stationID: "null",
+          bus: selectStation.bus,
+          latitude: selectStation.location.lat,
+          longitude: selectStation.location.lng,
+          province: "null",
+          city: selectStation.city,
+          district: "null",
+          iconPath: _page.data.busicon,
+          alpha: 0.7,
+          width: _page.data.markerScale,
+          height: _page.data.markerScale,
+        }
+
+        markerNum = 17;
+      }
+      let includeP = [];
+      includeP.push({
+        latitude: selectStation.location.lat,
+        longitude: selectStation.location.lng,
+      });
+      _page.setData({
+        markers: mapMarkers,
+        includePoints: includeP,
+        scale: 19,
+      });
+      _page.TapMapMarker({
+        markerId: markerNum
+      });
+    }
   },
 
   //TODO
@@ -202,11 +283,11 @@ Page({
   //事件处理函数
   RefreshMapMarkers: function(e) {
     let _page = this;
-    if (e.type=="begin")return;
-    if (mapLoadCountdown>0){
-      mapLoadCountdown -=1;
+    if (e.type == "begin") return;
+    if (mapLoadCountdown > 0) {
+      mapLoadCountdown -= 1;
       return;
-    } 
+    }
     // if (mapRefreshCountdown>0) {
     //   mapRefreshCountdown -= 1;
     //   return;
@@ -215,7 +296,7 @@ Page({
     this.mapCtx = wx.createMapContext("myMap");
     this.mapCtx.getCenterLocation({
       type: 'gcj02',
-      success: function (resL) {
+      success: function(resL) {
         qqmapsdk.search({
           keyword: '站',
           page_size: 14,
@@ -224,21 +305,24 @@ Page({
             longitude: resL.longitude
           },
           filter: encodeURI("category=公交车站"),
-          success: function (res) {
+          success: function(res) {
             var mks = _page.data.markers;
             let markersLength = _page.data.markers.length;
             let num = 0;
             if (mks.length > 35) {
               console.log("mks.length>80")
-              mks = mks.slice(0,18);
+              mks = mks.slice(0, 18);
               markersLength = 18;
             }
             for (var i = 0; i < res.data.length; i++) {
               let repeat = false;
-              for (var n = 0; n < markersLength;n++){
-                if (_page.data.markers[n].stationID == res.data[i].id) { repeat=true;break; }
+              for (var n = 0; n < markersLength; n++) {
+                if (_page.data.markers[n].stationID == res.data[i].id) {
+                  repeat = true;
+                  break;
+                }
               }
-              if(repeat){
+              if (repeat) {
                 continue;
               }
               //console.log(_page.data.markerLabelScale);
@@ -272,7 +356,7 @@ Page({
             });
             console.log(mks);
           },
-          fail: function (res) {
+          fail: function(res) {
             util.logError("车站信息获取失败");
           }
         });
@@ -284,6 +368,11 @@ Page({
     let _page = this;
     //console.log(options.markerId);
     let title = _page.data.markers[options.markerId].label.content;
+
+    _page.setData({
+      "mapCircle[0].latitude": _page.data.markers[options.markerId].latitude,
+      "mapCircle[0].longitude": _page.data.markers[options.markerId].longitude,
+    });
 
     qqmapsdk.calculateDistance({
       mode: 'driving',
@@ -329,12 +418,14 @@ Page({
     let _page = this;
     if (_page.data.markerLabelScale == 0) {
       _page.setData({
-        markerLabelScale : markerLabelFontScale,
+        markerLabelScale: markerLabelFontScale,
       });
       for (var i = 0; i < _page.data.markers.length; i++) {
         let str = "markers[" + i + "].label.fontSize"
+        let str1 = "markers[" + i + "].label.color"
         _page.setData({
-          [str]: _page.data.markerLabelScale
+          //[str]: _page.data.markerLabelScale,
+          [str1]: "#424200",
         });
       }
     } else {
@@ -343,8 +434,10 @@ Page({
       });
       for (var i = 0; i < _page.data.markers.length; i++) {
         let str = "markers[" + i + "].label.fontSize"
+        let str1 = "markers[" + i + "].label.color"
         _page.setData({
-          [str]: 0
+          //[str]: 0,
+          [str1]: "#42420000",
         });
       }
     }
@@ -402,25 +495,23 @@ Page({
     })
   },
 
-  Collect_location:function(){
-    var that=this
-    var collected =!this.data.location.collected
+  Collect_location: function() {
+    var that = this
+    var collected = !this.data.location.collected
     var key = "location.collected"
-    if (collected==false){
-       this.setData({
-         [key]: collected
-       })
-      }
-      else{
-        this.setData({
-          [key]: collected
-        })
-      }
+    if (collected == false) {
+      this.setData({
+        [key]: collected
+      })
+    } else {
+      this.setData({
+        [key]: collected
+      })
+    }
   },
-  Guide: function () {
+  Guide: function() {
     wx.navigateTo({
       url: '../routine/routine',
     })
   },
 })
-

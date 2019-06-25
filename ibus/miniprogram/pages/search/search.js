@@ -61,7 +61,7 @@ Page({
 
 
     searchProvince: "", //"湖北省",
-    searchCity: "", //"武汉市",
+    searchCity: "武汉市$$$$$$$$",
 
     searchingCity: "",
     searchTitle: "",
@@ -107,7 +107,7 @@ Page({
       searchingCity: _page.data.searchCity,
       searchSuggests: [],
     });
-
+    if (e.detail.value == "") { return; }
     qqmapsdk.getSuggestion({
       keyword: e.detail.value,
       region: this.data.searchingCity,
@@ -116,7 +116,7 @@ Page({
       //region_fix: 1,
       //filter: encodeURI("category=线路"),
       success: function(res) {
-        console.log(res);
+        //console.log(res);
         let suggest = [];
         for (var i = 0; i < res.data.length && i < 9; i++) {
           suggest.push({
@@ -141,6 +141,7 @@ Page({
     _page.setData({
       searchSuggests: [],
     });
+    if (_page.data.searchTitle==""){return;}
     qqmapsdk.getSuggestion({
       keyword: _page.data.searchTitle,
       region: this.data.searchingCity,
@@ -149,7 +150,7 @@ Page({
       //region_fix: 1,
       //filter: encodeURI("category=公交线路"),
       success: function(res) {
-        console.log(res);
+        //console.log(res);
         if (res.data.length > 0) {
           let buslist = [];
           let num = 0;
@@ -170,7 +171,7 @@ Page({
           _page.setData({
             searchBus: buslist,
           });
-          console.log(_page.data.searchBus);
+          //console.log(_page.data.searchBus);
         }
       },
       fail: function(error) {
@@ -178,7 +179,6 @@ Page({
         return;
       }
     });
-
 
     qqmapsdk.search({
       keyword: _page.data.searchTitle,
@@ -218,8 +218,8 @@ Page({
             searchStation: stationlist,
             searchPoint: locatelist,
           });
-          console.log(_page.data.searchStation);
-          console.log(_page.data.searchPoint);
+          //console.log(_page.data.searchStation);
+          //console.log(_page.data.searchPoint);
         }
       },
       fail: function (error) {
@@ -235,6 +235,9 @@ Page({
 
   },
 
+  onShow: function (options) {
+    //console.log("Debug:  "+this.data.searchCity)
+  },
 
   onLoad: function(options) {
     let _page = this;
@@ -243,19 +246,34 @@ Page({
       success(res) {
         _page.setData({
           searchProvince: res.data.province,
-          searchCity: res.data.city,
+          //searchCity: res.data.city,
           searchingCity: res.data.city,
         });
-        console.log(res);
       }
     })
+    _page.setData({
+      searchCity: app.globalData.searchCity,
+    });
+
   },
 
-  //TODO
-  changePage(){
+  switchStationPage(e){
+    let idnum = e.target.id;
+    let _page = this;
+    let stationInfo = {
+      title: _page.data.searchStation[idnum].title,
+      city: _page.data.searchStation[idnum].city,
+      bus: _page.data.searchStation[idnum].bus,
+      location: _page.data.searchStation[idnum].location,
+    };
+    app.globalData.selectStation = stationInfo;
     wx.switchTab({
        url: '../index/index',
      })
+  },
+
+  //TODO
+  switchBusPage(e) {
   },
 
   check_more1: function(options) {

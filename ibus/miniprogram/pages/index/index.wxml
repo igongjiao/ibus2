@@ -1,7 +1,7 @@
 <!--index.wxml-->
 
 <!--地图容器-->
-<map id="myMap" longitude="{{longitude}}" latitude="{{latitude}}" scale='{{scale}}' polyline="{{polyline}}" markers="{{markers}}" covers="{{covers}}" include-points="{{includePoints}}" bindregionchange="RefreshMapMarkers"bindmarkertap="TapMapMarker"    show-location>
+<map id="myMap" longitude="{{longitude}}" latitude="{{latitude}}" scale='{{scale}}' polyline="{{polyline}}" markers="{{markers}}" covers="{{covers}}" include-points="{{includePoints}}" circles="{{mapCircle}}" bindregionchange="RefreshMapMarkers"bindmarkertap="TapMapMarker"    show-location>
     <cover-view class="search" bindtap="Search">
       <cover-image class="search_icon" src="../../image/search.png"></cover-image>  
       <cover-view class="input" >搜索公交路线、车站、地点 </cover-view>

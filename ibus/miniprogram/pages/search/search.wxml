@@ -8,7 +8,7 @@
 <view class="routine">
   <view class="text">线路</view>
   <view wx:for="{{searchBus}}" wx:for-item="bus">
-    <view wx:if="{{bus.id<routine_number}}" class="place" bindtap="get_search">
+    <view wx:if="{{bus.id<routine_number}}" class="place" bindtap="switchBusPage">
       <image src="../../image/routine.png"></image>
       <view id="{{bus.id}}">{{bus.title}}|{{bus.city}}|{{bus.startStation}}————>{{bus.endStation}}</view>
     </view>
@@ -23,7 +23,7 @@
 <view class="routine">
   <view class="text">站点</view>
   <view wx:for="{{searchStation}}" wx:for-item="station">
-    <view wx:if="{{station.id<station_number}}" class="place" bindtap="changePage">
+    <view wx:if="{{station.id<station_number}}" class="place" bindtap="switchStationPage">
       <image src="../../image/busicon.png"></image>
       <view id="{{station.id}}">{{station.title}}|{{station.city}}|<!--{{station.bus}}--></view>
     </view>
