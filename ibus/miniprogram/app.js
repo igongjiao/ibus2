@@ -50,5 +50,9 @@ App({
     //   endStation: "",
     // },
     qqmapsdk:null,
+    userLocation:{
+      lat:0,
+      lng:0,
+    }
   }
 })

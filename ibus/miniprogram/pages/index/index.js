@@ -111,6 +111,7 @@ Page({
           longitude: res.longitude,
           scale: 17
         });
+        app.globalData.userLocation = { lat: res.latitude, lng: res.longitude};
         wx.setStorageSync('userlatlng', {
           lat: res.latitude,
           lng: res.longitude

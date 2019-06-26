@@ -60,6 +60,13 @@ Page({
       longitude: 0,
     },
     searchCity:"",
+    busLine:{
+      title:"",
+      startTime: "",
+      endTime: "",
+      polyline:[],
+      stations:[],
+    },
   },
   testTap: function () {
     let _page = this;
@@ -141,6 +148,7 @@ Page({
         } else {
           app.globalData.qqmapsdk.direction({
             mode: 'transit',
+            policy: 'LEAST_TRANSFER,NO_SUBWAY',
             from: {
               latitude: _page.data.startLocation.latitude,
               longitude: _page.data.startLocation.longitude
@@ -150,15 +158,51 @@ Page({
               longitude: _page.data.endLocation.longitude
             },
             success: function (res) {
-              console.log("ok%%%%%%%%%%%%%55");
-              console.log(_page.data.startLocation.searchTitle);
-              console.log(_page.data.endLocation.searchTitle);
               console.log(res);
-
+              var route = res.result.routes[0];
+              var i = 0;
+              for (; i < route.steps.length;i++){
+                if (route.steps[i].mode =="TRANSIT"){
+                  break;
+                }
+              }
+              var line = route.steps[i].lines[0];
+              if (line.vehicle == "BUS" && line.title.indexOf(app.globalData.selectBus.title) != -1){
+                console.log(line);
+                var stationL = line.stations;
+                if (line.stations[0].title.indexOf(_page.data.startLocation.searchTitle) == -1){
+                  stationL.unshift({
+                    id: 0,
+                    title: _page.data.startLocation.searchTitle,
+                    location: { lat: _page.data.startLocation.latitude, lng: _page.data.startLocation.longitude}
+                  });
+                }
+                for (var n = 0; n < line.stations.length;n++){
+                  stationL[n].id = n;
+                }
+                if (line.stations[line.stations.length - 1].title.indexOf(_page.data.endLocation.searchTitle) == -1) {
+                  stationL.push({
+                    id: line.stations.length,
+                    title: _page.data.endLocation.searchTitle,
+                    location: { lat: _page.data.endLocation.latitude, lng: _page.data.endLocation.longitude }
+                  });
+                }
+                _page.setData({
+                  busLine:{
+                    title: line.title,
+                    startTime: line.start_time,
+                    endTime: line.end_time,
+                    polyline: line.polyline,
+                    stations: stationL,
+                  }
+                });
+              }else{
+                util.logError("线路暂时停运");
+              }
             }, fail: function (error) {
-              console.log(error);
+              util.logError(error);
             },
-          });
+          });          
         }
 
       },
