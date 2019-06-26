@@ -94,7 +94,6 @@ Page({
             selectBus.endStation = str[1];
 
             _page.searchStation(_page.data.startLocation.searchTitle, "startLocation.latitude", "startLocation.longitude");
-            _page.searchStation(_page.data.endLocation.searchTitle, "endLocation.latitude", "endLocation.longitude");
           },
           fail: function (error) {
             util.logError("站点名称获取失败");
@@ -106,7 +105,6 @@ Page({
           "endLocation.searchTitle": selectBus.endStation,
         });
         _page.searchStation(_page.data.startLocation.searchTitle, "startLocation.latitude", "startLocation.longitude");
-        _page.searchStation(_page.data.endLocation.searchTitle, "endLocation.latitude", "endLocation.longitude");
       }
 
     }
@@ -138,6 +136,30 @@ Page({
           [latStr]: res.data[i].location.lat,
           [lngStr]: res.data[i].location.lng,
         });
+        if (latStr == "startLocation.latitude") {
+          _page.searchStation(_page.data.endLocation.searchTitle, "endLocation.latitude", "endLocation.longitude");
+        } else {
+          app.globalData.qqmapsdk.direction({
+            mode: 'transit',
+            from: {
+              latitude: _page.data.startLocation.location.lat,
+              longitude: _page.data.startLocation.location.lng
+            },
+            to: {
+              latitude: _page.data.endLocation.location.lat,
+              longitude: _page.data.endLocation.location.lng
+            },
+            success: function (res) {
+              console.log("ok%%%%%%%%%%%%%55");
+
+              console.log(res);
+
+            }, fail: function (error) {
+              console.log(error);
+            },
+          });
+        }
+
       },
       fail: function (error) {
         util.logError("车站获取失败");
