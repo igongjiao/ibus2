@@ -71,6 +71,8 @@ Page({
       duration: 0,
       busList: [],
     },
+    id: ''//获取id
+
   },
 
   /**
@@ -78,13 +80,16 @@ Page({
    */
   onLoad: function(options) {
 
-    /*wx.cloud.init({
+    wx.cloud.callFunction({
+      name: 'getOpenid',
+      complete: res => {
+        console.log('云函数获取到的openid: ', res.result.openid)
+        app.globalData.openid = res.result.openId;
 
-      env: 'igongjiao-9og0k',
+      }
+    })
 
-      traceUser: true
 
-    });*/
     let _page = this;
     //获取用户坐标经纬度
     wx.getLocation({
@@ -305,6 +310,7 @@ Page({
       success: function(res) {
         console.log(res);
         var res = res.result;
+       
         _page.setData({
           stationInfo: {
             valid: true,
@@ -316,8 +322,45 @@ Page({
             distance: res.elements[0].distance,
             duration: (res.elements[0].duration / 60 + 2).toFixed(2)
           },
-          show1: true
+
+
+
+          show1: true,
+          
+          
         });
+
+
+
+
+
+//初始化站点收藏开始
+
+        const db = wx.cloud.database()
+
+        var c = db.collection('something').where({
+          _openid: app.globalData.openid,
+          station: _page.data.stationInfo.title
+        }).get({
+          success: function (res) {
+            console.log('成功')
+            if (res.data.length!=0){
+              _page.setData({
+                "location.collected": true
+              })
+            }else{
+              _page.setData({
+                "location.collected": false
+              })
+            }
+            
+          },
+          fail: function (res) {
+            console.log('失败')
+            
+          }
+        })
+//初始化站点收藏结束
         console.log(_page.data.stationInfo);
       },
       fail: function(res) {
@@ -415,13 +458,28 @@ Page({
     var station = this.data.stationInfo.title
     var that=this
     var collected =!this.data.location.collected
+    var openid 
     var key = "location.collected"
-    if (collected==false){
-      db.collection('something').doc(
-        db.collection('something').where({
-          _openid: _.eq(openid),
+    //收藏或取消收藏站点
+    if (collected==false){ 
+      db.collection('something').where({
+        _openid: _.eq(app.globalData.openid),
         station: station
-      }).get(_id)).remove
+      }).get().then(res => {
+        /*that.setData({
+          id: res.data[0]._id
+        })*/
+        console.log(res.data);            
+        that.setData({                      
+        id: res.data[0]._id          
+        })
+
+      })
+
+      db.collection('something').doc(that.data.id).remove({
+        success: console.log,
+        fail: console.error
+      })
       this.setData({
          [key]: collected
        })
@@ -439,7 +497,7 @@ Page({
           console.log(res);
           console.log(res.errMsg);
         }
-      });
+      });//收藏或取消收藏站点
         this.setData({
           [key]: collected
         })

@@ -40,12 +40,20 @@ App({
 
     })
   },
-
+  data: {
+    openid: '',
+  },
+  onLoad: function () {
+    this.getOpenid();
+  },
+  // 获取用户openid
+  
   
 
   globalData: {
     userInfo: null,
     search_place:'',
     qqmapsdk:null,
+    openid:''
   }
 })
