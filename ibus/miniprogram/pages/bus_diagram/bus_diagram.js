@@ -142,16 +142,17 @@ Page({
           app.globalData.qqmapsdk.direction({
             mode: 'transit',
             from: {
-              latitude: _page.data.startLocation.location.lat,
-              longitude: _page.data.startLocation.location.lng
+              latitude: _page.data.startLocation.latitude,
+              longitude: _page.data.startLocation.longitude
             },
             to: {
-              latitude: _page.data.endLocation.location.lat,
-              longitude: _page.data.endLocation.location.lng
+              latitude: _page.data.endLocation.latitude,
+              longitude: _page.data.endLocation.longitude
             },
             success: function (res) {
               console.log("ok%%%%%%%%%%%%%55");
-
+              console.log(_page.data.startLocation.searchTitle);
+              console.log(_page.data.endLocation.searchTitle);
               console.log(res);
 
             }, fail: function (error) {
