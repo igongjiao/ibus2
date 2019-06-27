@@ -18,35 +18,6 @@ var mapRefreshCountdown = 0;
 const markerLabelFontScale = 12;
 Page({
   data: {
-    bus: [{
-        bus_number: "781",
-        collected: false
-      },
-      {
-        bus_number: "781",
-        collected: false
-      },
-      {
-        bus_number: "781",
-        collected: false
-      },
-      {
-        bus_number: "781",
-        collected: false
-      },
-      {
-        bus_number: "781",
-        collected: false
-      },
-      {
-        bus_number: "781",
-        collected: false
-      },
-      {
-        bus_number: "781",
-        collected: false
-      },
-    ],
     location: {
       name: "华中科技大学",
       distance: "20m",
@@ -87,6 +58,10 @@ Page({
     stationInfo: {
       valid: false,
       title: "",
+      location: {
+        lat: 0,
+        lng: 0
+      },
       distance: 0,
       duration: 0,
       busList: [],
@@ -124,10 +99,10 @@ Page({
           scale: 17
         });
         app.globalData.userLocation = { lat: res.latitude, lng: res.longitude};
-        wx.setStorageSync('userlatlng', {
-          lat: res.latitude,
-          lng: res.longitude
-        });
+        // wx.setStorageSync('userlatlng', {
+        //   lat: res.latitude,
+        //   lng: res.longitude
+        // });
         //console.log(res);
 
         //获取用户位置信息
@@ -281,7 +256,7 @@ Page({
     }
   },
 
-  //TODO
+  //TODO暂时没用
   setStationInfoEmpty() {
     _page = this;
     _page.setData({
@@ -409,6 +384,10 @@ Page({
           stationInfo: {
             valid: true,
             title: title,
+            location: {
+              lat: _page.data.markers[options.markerId].latitude,
+              lng: _page.data.markers[options.markerId].longitude
+            },
             busList: _page.data.markers[options.markerId].bus.split(","),
             province: _page.data.markers[options.markerId].province,
             city: _page.data.markers[options.markerId].city,
@@ -603,6 +582,22 @@ Page({
       }
   },
   Guide: function() {
+    let _page = this;
+    app.globalData.startDirection = {
+      title:"我的位置",
+      fullInfo:true,
+      lat: app.globalData.userLocation.lat,
+      lng: app.globalData.userLocation.lng,
+    };
+    app.globalData.endDirection = {
+      title: _page.data.stationInfo.title,
+      fullInfo: true,
+      lat: _page.data.stationInfo.location.lat,
+      lng: _page.data.stationInfo.location.lng,
+    };
+    wx.switchTab({
+      url: '../routine/routine',
+    })
     wx.navigateTo({
       url: '../routine/routine',
     })

@@ -56,19 +56,22 @@ App({
     searchCity:"",
     selectStation:null,
     selectBus:null,
-    // {
-    //   fullInfo:false,
-    //   title:"",
-    //   city:"",
-    //   startStation:"",
-    //   endStation: "",
-    // },
+
     qqmapsdk:null,
 
     userLocation:{
       lat:0,
       lng:0,
     },
+    startDirection:null,
+    // {
+    //   title:"",
+    //   fullInfo:false,
+    //   lat: 0,
+    //   lng: 0,
+    // },
+    endDirection: null,
+
     openid:'',
   }
 })

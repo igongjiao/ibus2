@@ -15,7 +15,7 @@ Page({
     station_number:3,
     routine_number: 3,
     place_number: 3,
-    
+
     searchProvince: "", //"湖北省",
     searchCity: "武汉市$$$$$$$$",
 
@@ -169,7 +169,7 @@ Page({
             searchPoint: locatelist,
           });
           //console.log(_page.data.station_number);
-          //console.log(_page.data.searchPoint);
+          console.log(_page.data.searchPoint);
         }
       },
       fail: function (error) {
@@ -230,6 +230,29 @@ Page({
     app.globalData.selectBus = busInfo;
     wx.navigateTo({
       url: '../bus_diagram/bus_diagram',
+    })
+  },
+
+  switchDirectionPage(e){
+    let idnum = e.target.id;
+    let _page = this;
+    app.globalData.startDirection = {
+      title: "我的位置",
+      fullInfo: true,
+      lat: app.globalData.userLocation.lat,
+      lng: app.globalData.userLocation.lng,
+    };
+    app.globalData.endDirection = {
+      title: _page.data.searchPoint[idnum].title,
+      fullInfo: true,
+      lat: _page.data.searchPoint[idnum].location.lat,
+      lng: _page.data.searchPoint[idnum].location.lng,
+    };
+    wx.switchTab({
+      url: '../routine/routine',
+    })
+    wx.navigateTo({
+      url: '../routine/routine',
     })
   },
 
