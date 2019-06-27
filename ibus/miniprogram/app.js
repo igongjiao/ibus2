@@ -32,8 +32,22 @@ App({
         }
       }
     })
-  },
+    wx.cloud.init({
 
+      env: 'igongjiao-9og0k',
+
+      traceUser: true
+
+    })
+  },
+  data: {
+    openid: '',
+  },
+  onLoad: function () {
+    this.getOpenid();
+  },
+  // 获取用户openid
+  
   
 
   globalData: {
@@ -50,9 +64,11 @@ App({
     //   endStation: "",
     // },
     qqmapsdk:null,
+
     userLocation:{
       lat:0,
       lng:0,
-    }
+    },
+    openid:'',
   }
 })
