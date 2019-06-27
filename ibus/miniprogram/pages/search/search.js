@@ -1,17 +1,63 @@
 // pages/search/search.js
-var app=getApp();
+//引入工具类
+const util = require('../../utils/util.js')
+
+var app = getApp();
 var qqmapsdk = app.globalData.qqmapsdk;
 Page({
 
+  /**
+   * 页面的初始数据
+   */
   data: {
-
-    userName: '',
-
-    userPassword: '',
-
-    userPasswordAgain: '',
-
-    checkbox: false,
+    history_routines: [{
+      start: "华中科技大学",
+      destination: "武汉大学"
+    }, {
+      start: "华中科技大学",
+      destination: "武汉大学"
+    }, {
+      start: "华中科技大学",
+      destination: "武汉大学"
+    }, {
+      start: "华中科技大学",
+      destination: "武汉大学"
+    }, {
+      start: "华中科技大学",
+      destination: "武汉大学"
+    }, {
+      start: "华中科技大学",
+      destination: "武汉大学"
+    }, ],
+    history_stations: [{
+      name: "佳园路"
+    }, {
+      name: "佳园路"
+    }, {
+      name: "佳园路"
+    }, {
+      name: "佳园路"
+    }, {
+      name: "佳园路"
+    }, {
+      name: "佳园路"
+    }, ],
+    history_places: [{
+      name: "武汉大学"
+    }, {
+      name: "武汉大学"
+    }, {
+      name: "武汉大学"
+    }, {
+      name: "武汉大学"
+    }, {
+      name: "武汉大学"
+    }, {
+      name: "武汉大学"
+    }, ],
+    routine_number: 3,
+    station_number: 3,
+    place_number: 3,
 
 
     searchProvince: "", //"湖北省",
@@ -24,13 +70,8 @@ Page({
     searchBus: [],
     searchPoint: [],
 
-    repetition: false
-
   },
-
-
-
-  loghistory(){
+  loghistory() {
     wx.switchTab({
       url: '../index/index',
     })
@@ -175,13 +216,19 @@ Page({
         return;
       }
     });
+
     //数据可能未加载完成TODO
     // wx.switchTab({
     //   url: '../index/index',
     // })
+
   },
 
-  onLoad: function (options) {
+  onShow: function (options) {
+    //console.log("Debug:  "+this.data.searchCity)
+  },
+
+  onLoad: function(options) {
     let _page = this;
     wx.getStorage({
       key: 'searchRegion',

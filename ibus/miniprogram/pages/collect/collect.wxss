@@ -55,11 +55,3 @@
     height: 0;
     color: transparent;
 }
-.collect_locate{
-  height: 50rpx;
-  width: 50rpx;
-}
-
-.collect_locate_hide{
-  display: none;
-}

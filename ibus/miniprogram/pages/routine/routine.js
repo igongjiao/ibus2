@@ -14,5 +14,4 @@ Page({
       url: '../index/index',
     })
   }
-  
 })

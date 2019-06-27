@@ -94,25 +94,13 @@ Page({
       city: "",
       district: "",
     },
-    id: ''//获取id
-
   },
 
   /**
    * 生命周期函数--监听页面加载   获取用户当前位置
    */
   onLoad: function(options) {
-
-    wx.cloud.callFunction({
-      name: 'getOpenid',
-      complete: res => {
-        console.log('云函数获取到的openid: ', res.result.openid)
-        app.globalData.openid = res.result.openId;
-
-      }
-    })
-
-
+    wx.cloud.init();
     let _page = this;
     //获取用户坐标经纬度
     wx.getLocation({
@@ -404,7 +392,6 @@ Page({
       success: function(res) {
         //console.log(res);
         var res = res.result;
-       
         _page.setData({
           stationInfo: {
             valid: true,
@@ -416,36 +403,8 @@ Page({
             distance: res.elements[0].distance,
             duration: (res.elements[0].duration * 5 / 60).toFixed(2)
           },
-          show1: true,
+          show1: true
         });
-
-//初始化站点收藏开始
-
-        const db = wx.cloud.database()
-
-        var c = db.collection('something').where({
-          _openid: app.globalData.openid,
-          station: _page.data.stationInfo.title
-        }).get({
-          success: function (res) {
-            console.log('成功')
-            if (res.data.length!=0){
-              _page.setData({
-                "location.collected": true
-              })
-            }else{
-              _page.setData({
-                "location.collected": false
-              })
-            }
-            
-          },
-          fail: function (res) {
-            console.log('失败')
-            
-          }
-        })
-//初始化站点收藏结束
         console.log(_page.data.stationInfo);
       },
       fail: function(res) {
@@ -551,56 +510,19 @@ Page({
     });
   },
 
-  Collect_location:function(){
-    const db = wx.cloud.database()
-    const _ = db.command
-    var station = this.data.stationInfo.title
-    var that=this
-    var collected =!this.data.location.collected
-    var openid 
+  Collect_location: function() {
+    var that = this
+    var collected = !this.data.location.collected
     var key = "location.collected"
-    //收藏或取消收藏站点
-    if (collected==false){ 
-      db.collection('something').where({
-        _openid: _.eq(app.globalData.openid),
-        station: station
-      }).get().then(res => {
-        /*that.setData({
-          id: res.data[0]._id
-        })*/
-        console.log(res.data);            
-        that.setData({                      
-        id: res.data[0]._id          
-        })
-
-      })
-
-      db.collection('something').doc(that.data.id).remove({
-        success: console.log,
-        fail: console.error
-      })
+    if (collected == false) {
       this.setData({
-         [key]: collected
-       })
-      }
-      else{
-      
-      console.log(station);
-      
-      db.collection('something').add({
-        // data 字段表示需新增的 JSON 数据        
-        data: {
-          station: station,
-        }, success: function (res) {
-          // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id          
-          console.log(res);
-          console.log(res.errMsg);
-        }
-      });//收藏或取消收藏站点
-        this.setData({
-          [key]: collected
-        })
-      }
+        [key]: collected
+      })
+    } else {
+      this.setData({
+        [key]: collected
+      })
+    }
   },
   Guide: function() {
     wx.navigateTo({
