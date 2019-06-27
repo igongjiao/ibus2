@@ -12,8 +12,10 @@ Page({
     userPasswordAgain: '',
 
     checkbox: false,
-
-
+    station_number:3,
+    routine_number: 3,
+    place_number: 3,
+    
     searchProvince: "", //"湖北省",
     searchCity: "武汉市$$$$$$$$",
 
@@ -166,7 +168,7 @@ Page({
             searchStation: stationlist,
             searchPoint: locatelist,
           });
-          //console.log(_page.data.searchStation);
+          //console.log(_page.data.station_number);
           //console.log(_page.data.searchPoint);
         }
       },
