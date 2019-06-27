@@ -7,10 +7,14 @@
   <view class="search">
     <view class="rectangle">
       <view style="width:100%;margin-left:20rpx;">
-        <input class="start" placeholder="我的位置" ></input>
-        <input class="destination" placeholder="输入终点" ></input>
+        <input class="start" placeholder="输入起点" bindinput="get_search" value='{{searchTitle}}'></input>
+          <view wx:for="{{searchSuggests}}" wx:for-item="sug">
+            <text class="log-item"bindtap="changeInput"id="{{sug.id}}">{{sug.title}}---{{sug.city}}</text></view>
+        <input class="destination" placeholder="输入终点" bindinput="get_search2" value='{{searchTitle2}}'></input>
+          <view wx:for="{{searchSuggests2}}" wx:for-item="sug">
+            <text class="log-item"bindtap="changeInput2"id="{{sug.id}}">{{sug.title}}---{{sug.city}}</text></view>
       </view>
-      <image class="change" src="../../image/location.png" bindtap="search"></image>
+      <image class="change" src="../../image/location.png" bindtap="searchInfo"></image>
     </view>
   </view>
   <view class="bt">
