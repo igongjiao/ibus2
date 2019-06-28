@@ -11,8 +11,7 @@ Page({
       "路线收藏",
     ],
     station: [{ message: "", collected: false}],
-    routine: [{ message: 1 }, { message: 2 }, { message: 3 }, { message: 4 }, { message: 5 }, { message: 6 },
-      { message: 1 }, { message: 2 }, { message: 3 }, { message: 4 }, { message: 5 }, { message: 6 },],
+    routine: [{ message: "", collected: false}],
     windowHeight: 0,
     scrollViewHeight:0,
     id: ''
@@ -37,6 +36,7 @@ Page({
 
     const db = wx.cloud.database()
     var that = this
+    //显示收藏站点
     db.collection('something').where({
       _openid: app.globalData.openid,
     }).get({
@@ -59,7 +59,28 @@ Page({
         console.log()
       }
     })
-    
+    //显示收藏线路
+    db.collection('route').where({
+      _openid: app.globalData.openid,
+    }).get({
+      success: function (res) {
+        console.log('成功')
+        console.log(res.data.length)
+        var station = that.data.station
+        for (var i = 0; i < res.data.length; i++) {
+
+          var key = "routine[" + i + "].message"
+          console.log(res.data[i].route)
+          that.setData({
+            [key]: res.data[i].route
+          })
+        }
+
+      },
+      fail: function (res) {
+        console.log()
+      }
+    })
    
   },
   /**

@@ -376,7 +376,6 @@ Page({
       success: function(res) {
         //console.log(res);
         var res = res.result;
-       
         _page.setData({
           stationInfo: {
             valid: true,
@@ -392,21 +391,32 @@ Page({
         });
         const db = wx.cloud.database()
         //初始化线路收藏开始
-        var barr = [];
+        //var barr = [];
         var bbarr = [];
         db.collection('route').where({
           _openid: app.globalData.openid,
         }).get({
           success: function (res) {
             for (var a = 0; a < _page.data.stationInfo.busList.length; a++) {
-              bbarr[a] = false
+              var key = "stationInfo.busCollected[" + a + "]"
+              console.log([key])
+              _page.setData({
+                [key]: false,
+              })
+              console.log(_page.data.stationInfo.busCollected[a])
+              //bbarr[a] = false
               //console.log(_page.data.stationInfo.busList[a])
               for (var b = 0; b < res.data.length; b++) {
                 if (res.data[b].route == _page.data.stationInfo.busList[a]) {
-                  bbarr[a] = true
+                  _page.setData({
+                    [key]: true,
+                  })
+                  console.log(_page.data.stationInfo.busCollected[a])
+                  //bbarr[a] = true
                 } 
               }
             }
+            console.log(_page.data.stationInfo.busCollected)
           },
           fail: function (res) {
             console.log('初始线路收藏失败')
@@ -414,33 +424,12 @@ Page({
           complete: function (res) {
           }
         })
-        
-          //console.log(_page.data.stationInfo.busList[i])
-          /*db.collection('route').where({
-            _openid: app.globalData.openid,
-            route: _page.data.stationInfo.busList[i]
-          }).get({
-            success: function (res) {
-              if (res.data.length != 0) {
-                barr[i]=true
-                console.log(i)
-              } else {
-                barr[i] =false
-                console.log(i)
-              }
-            },
-            fail: function (res) {
-              console.log('初始线路收藏失败')
-            },
-            complete: function (res) {
-            }
-          })*/
-        
-        _page.setData({
+  
+        /*_page.setData({
           "stationInfo.busCollected": bbarr
-        })
-        console.log("bbarr")
-        console.log(bbarr)
+        })*/
+        console.log("busCollected")
+        console.log(_page.data.stationInfo.busCollected)
 //初始化线路收藏结束
         //初始化站点收藏开始
         db.collection('something').where({
@@ -460,10 +449,7 @@ Page({
             }
             
           },
-          /*fail: function (res) {
-            console.log('初始站点收藏失败')
-            
-          }*/
+          
         })
 //初始化站点收藏结束
 
