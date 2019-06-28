@@ -15,6 +15,7 @@ Page({
       { message: 1 }, { message: 2 }, { message: 3 }, { message: 4 }, { message: 5 }, { message: 6 },],
     windowHeight: 0,
     scrollViewHeight:0,
+    
     id: ''
   },
   
@@ -48,9 +49,11 @@ Page({
         {
           
           var key = "station[" + i + "].message"
+          var key2 = "station[" + i + "].collected"
           console.log(res.data[i].station)
           that.setData({
-            [key]: res.data[i].station
+            [key]: res.data[i].station,
+            [key2]:true
           })
         }
         
@@ -85,13 +88,6 @@ Page({
       navbarActiveIndex: detail.current
     })
   },
-  startPullDownRefresh: function () {
-    wx.startPullDownRefresh();
-    this.onLoad();
-  },
-  stopPullDownRefresh: function () {
-    wx.stopPullDownRefresh()
-  },
 
   Collect_location: function (e) {
     const db = wx.cloud.database()
@@ -114,6 +110,7 @@ Page({
         id: res.data[0]._id,
         [key]:false
       })
+      console.log(that.data.station);
       //this.data.id = res.data[0]._id
       console.log(this.data.id)
       db.collection('something').doc(this.data.id).remove({
@@ -121,9 +118,8 @@ Page({
         fail: console.error
       });
     });
-    this.startPullDownRefresh();
-    this.onLoad();
-    this.onShow();
+
+   
 
     //console.log(this.data.id)
     

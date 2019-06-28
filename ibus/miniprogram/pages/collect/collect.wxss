@@ -49,6 +49,8 @@
   background-color: white;
   border: 1px solid white;
   border-radius: 3%;
+  display: flex;
+  flex-direction: row;
 }
 ::-webkit-scrollbar{
     width: 0;

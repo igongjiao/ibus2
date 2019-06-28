@@ -1,6 +1,15 @@
-<!--logs.wxml-->
+<!-- logs.wxml
 <view class="container log-list">
   <block wx:for="{{logs}}" wx:for-item="log">
     <text class="log-item">{{index + 1}}. {{log}}</text>
   </block>
+</view> -->
+
+<view class="map-weather">
+  <view><text>城市：</text>{{address}}</view>
+  <view><text>天气：</text>{{weather}}</view>
+  <view><text>温度：</text>{{temperature}}℃</view>
+  <view><text>风力：</text>{{windpower}}级</view>
+  <view><text>湿度：</text>{{humidity}}%</view>
+  <view><text>风向：</text>{{winddirection}}</view>
 </view>
