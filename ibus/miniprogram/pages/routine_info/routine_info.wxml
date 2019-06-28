@@ -7,24 +7,27 @@
   </view>
   <view style="position: relative;left:70rpx;">
     <view>{{start}}</view>
-    <view style="font-size:25rpx;color:gray;margin-top:10rpx">{{distance}}</view>
+    <view style="font-size:25rpx;color:gray;margin-top:10rpx">{{routine.steps[0].distance}}米</view>
   </view>
 </view>
 
-<view class="middle">
-  <image src="../../image/bus_blue.png"></image>
-  <view style="position: relative;left: 40rpx">
-    <view class="line2"></view>
-  </view>
-  <view style="position: relative;left: 100rpx;">
-    <view>{{bus_number}}(开往和平大道)</view>
-    <view>
-      <view style="margin-top:30rpx" wx:for="{{station_info}}">
-        <view wx:if="{{index==0}}">{{item}}上车</view>
-        <view wx:elif="{{index==station_info.length-1}}">{{item}}下车</view>
-        <view wx:else>{{item}}</view>
+<view class="middle" wx:for="{{steps}}" wx:for-item="step">
+  <view wx:if="{{step.mode=='TRANSIT'}}">
+    <image src="../../image/bus_blue.png"></image>
+    <view style="position: relative;left: 40rpx">
+      <view class="line2"></view>
+    </view>
+    <view style="position: relative;left: 100rpx;">
+      <view style="margin-top:30rpx">{{step.lines[0].geton.title}}上车</view>
+      <view style="margin-top:30rpx" wx:for="{{step.lines[0].stations}}" wx:for-item="station">
+        <view wx:if="{{index==step.lines[0].stations.length-1}}">{{station.title}}下车</view>
+        <view wx:else>{{station.title}}</view>
       </view>
     </view>
+  </view>
+  <view wx:else>
+      <view>步行</view>
+      <view style="font-size:25rpx;color:gray;margin-top:10rpx">{{step.distance}}米</view>
   </view>
 </view>
 
@@ -35,7 +38,7 @@
     <view class="dot2"></view>
   </view>
   <view style="position: relative;left: 70rpx;">
-    <view style="font-size:25rpx;color:gray;margin-top: 8px;margin-bottom: 10rpx;">{{distance}}</view>
+    <view style="font-size:25rpx;color:gray;margin-top: 8px;margin-bottom: 10rpx;">{{routine.steps[routine.steps.length-1].distance}}米</view>
     <view>{{destination}}</view>
   </view>
 </view>

@@ -68,7 +68,7 @@ Page({
           longitude: endD.lng
         },
         success: function (res) {
-          console.log(res);
+          //console.log(res);
           var routes = res.result.routes;
           if (routes.length<=0)return;
           var routesList = [];
@@ -104,7 +104,7 @@ Page({
           _page.setData({
             routineList: routesList,
           });
-          console.log(_page.data.routineList)
+          //console.log(_page.data.routineList)
         }, fail: function (error) {
           util.logError("路线导航失败");
           console.log(error);
