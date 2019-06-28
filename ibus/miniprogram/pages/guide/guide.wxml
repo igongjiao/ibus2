@@ -5,7 +5,7 @@
     <view class="routine" wx:for="{{routineList}}" bindtap="show_info" id="{{item.id}}">
       <view class="routine_info">
         <view>{{item.time}}</view>
-        <view>步行{{item.walking_distance}}</view>
+        <view >步行{{item.walking_distance}}</view>
       </view>
       <view>
         <view class="bus_number" wx:for="{{item.busName}}" wx:for-item="bus">{{bus}}</view>

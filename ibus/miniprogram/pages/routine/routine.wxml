@@ -8,11 +8,13 @@
     <view class="rectangle">
       <view style="width:100%;margin-left:20rpx;">
         <input class="start" placeholder="输入起点" bindinput="get_search" value='{{searchTitle}}'></input>
-          <view wx:for="{{searchSuggests}}" wx:for-item="sug">
-            <text class="log-item"bindtap="changeInput"id="{{sug.id}}">{{sug.title}}---{{sug.city}}</text></view>
+        <view wx:for="{{searchSuggests}}" wx:for-item="sug" style="background-color:white;width:100vh;">
+          <text class="log-item" bindtap="changeInput" id="{{sug.id}}">{{sug.title}}---{{sug.city}}</text>
+        </view>
         <input class="destination" placeholder="输入终点" bindinput="get_search2" value='{{searchTitle2}}'></input>
-          <view wx:for="{{searchSuggests2}}" wx:for-item="sug">
-            <text class="log-item"bindtap="changeInput2"id="{{sug.id}}">{{sug.title}}---{{sug.city}}</text></view>
+        <view wx:for="{{searchSuggests2}}" wx:for-item="sug">
+          <text class="log-item" bindtap="changeInput2" id="{{sug.id}}">{{sug.title}}---{{sug.city}}</text>
+        </view>
       </view>
       <image class="change" src="../../image/guide.png" bindtap="searchInfo"></image>
     </view>
@@ -21,9 +23,9 @@
     <text>搜索历史</text>
     <image src="../../image/delete.png" bindtap="Delete_history"></image>
   </view>
-  <view class="history" >
+  <view class="history">
     <view class="routine" wx:for="{{history_routine}}">
-      <icon  type="waiting" size="15" color="gray" style="margin-top:18rpx;"></icon>
+      <icon type="waiting" size="15" color="gray" style="margin-top:18rpx;"></icon>
       <text>{{item.start}}——>{{item.destination}}</text>
     </view>
   </view>

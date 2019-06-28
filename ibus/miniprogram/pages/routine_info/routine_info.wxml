@@ -1,43 +1,49 @@
 <!--miniprogram/pages/routine_info/routine_info.wxml-->
 <view class="top">
   <image src="../../image/man.png"></image>
-  <view style="position: relative;left: 40rpx">
+  <view style="position: absolute;left: 11%;height:100%;">
     <view class="dot1"></view>
     <view class="line1"></view>
   </view>
-  <view style="position: relative;left:70rpx;">
+  <view style="position: absolute;left:18%;">
     <view>{{start}}</view>
     <view style="font-size:25rpx;color:gray;margin-top:10rpx">{{routine.steps[0].distance}}米</view>
   </view>
 </view>
 
-<view class="middle" wx:for="{{steps}}" wx:for-item="step">
-  <view wx:if="{{step.mode=='TRANSIT'}}">
+<view class="item" wx:for="{{steps}}" wx:for-item="step" >
+  <view class="bus_route" wx:if="{{step.mode=='TRANSIT'}}" style="height:{{90+30*(step.lines[0].stations.length-1)}}px">
     <image src="../../image/bus_blue.png"></image>
-    <view style="position: relative;left: 40rpx">
+    <view style="position: absolute;left: 11%;height:100%;">
       <view class="line2"></view>
     </view>
-    <view style="position: relative;left: 100rpx;">
-      <view style="margin-top:30rpx">{{step.lines[0].geton.title}}上车</view>
+    <view style="position: absolute;left: 18%;">
+      <view style="margin-top:30rpx;">{{step.lines[0].geton.title}}上车</view>
       <view style="margin-top:30rpx" wx:for="{{step.lines[0].stations}}" wx:for-item="station">
         <view wx:if="{{index==step.lines[0].stations.length-1}}">{{station.title}}下车</view>
-        <view wx:else>{{station.title}}</view>
+        <view wx:else style="color:gray;font-size:25rpx">{{station.title}}</view>
       </view>
     </view>
   </view>
-  <view wx:else>
+  <view class="walk" wx:else>
+    <image src="../../image/man.png" style="margin-top:5px;"></image>
+    <view style="position: absolute;left: 11%;height:100%;">
+      <view class="line1"></view>
+    </view>
+    <view style="position: absolute;left:18%;top:5px;">
       <view>步行</view>
       <view style="font-size:25rpx;color:gray;margin-top:10rpx">{{step.distance}}米</view>
+     </view>
   </view>
 </view>
 
 <view class="bottom">
   <image src="../../image/man.png"></image>
-  <view style="position: relative;left: 40rpx">
+  <view style="position: absolute;left: 11%;height:100%;">
     <view class="line3"></view>
     <view class="dot2"></view>
   </view>
-  <view style="position: relative;left: 70rpx;">
+  <view style="position: absolute;left: 18%;">
     <view style="font-size:25rpx;color:gray;margin-top: 8px;margin-bottom: 10rpx;">{{routine.steps[routine.steps.length-1].distance}}米</view>
     <view>{{destination}}</view>
   </view>

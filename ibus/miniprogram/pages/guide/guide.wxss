@@ -64,11 +64,14 @@
   margin: 20rpx;
   padding: 20rpx;
   text-align: center;
+  width: 90px;
 }
 .bus_number{
+  display: inline-block;
+  margin: 0 10px 5px 0;
   border: 1px solid blue;
   border-radius: 46%;
-  width: 70rpx;
+  padding: 9rpx;
   color: blue;
   text-align: center;
 }
