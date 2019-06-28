@@ -18,35 +18,6 @@ var mapRefreshCountdown = 0;
 const markerLabelFontScale = 12;
 Page({
   data: {
-    bus: [{
-        bus_number: "781",
-        collected: false
-      },
-      {
-        bus_number: "781",
-        collected: false
-      },
-      {
-        bus_number: "781",
-        collected: false
-      },
-      {
-        bus_number: "781",
-        collected: false
-      },
-      {
-        bus_number: "781",
-        collected: false
-      },
-      {
-        bus_number: "781",
-        collected: false
-      },
-      {
-        bus_number: "781",
-        collected: false
-      },
-    ],
     location: {
       name: "华中科技大学",
       distance: "20m",
@@ -90,6 +61,7 @@ Page({
       distance: 0,
       duration: 0,
       busList: [],
+      busCollected:[],
       province: "",
       city: "",
       district: "",
@@ -418,17 +390,65 @@ Page({
           },
           show1: true,
         });
-
-//初始化站点收藏开始
-
         const db = wx.cloud.database()
-
-        var c = db.collection('something').where({
+        //初始化线路收藏开始
+        var barr = [];
+        var bbarr = [];
+        db.collection('route').where({
+          _openid: app.globalData.openid,
+        }).get({
+          success: function (res) {
+            for (var a = 0; a < _page.data.stationInfo.busList.length; a++) {
+              bbarr[a] = false
+              //console.log(_page.data.stationInfo.busList[a])
+              for (var b = 0; b < res.data.length; b++) {
+                if (res.data[b].route == _page.data.stationInfo.busList[a]) {
+                  bbarr[a] = true
+                } 
+              }
+            }
+          },
+          fail: function (res) {
+            console.log('初始线路收藏失败')
+          },
+          complete: function (res) {
+          }
+        })
+        
+          //console.log(_page.data.stationInfo.busList[i])
+          /*db.collection('route').where({
+            _openid: app.globalData.openid,
+            route: _page.data.stationInfo.busList[i]
+          }).get({
+            success: function (res) {
+              if (res.data.length != 0) {
+                barr[i]=true
+                console.log(i)
+              } else {
+                barr[i] =false
+                console.log(i)
+              }
+            },
+            fail: function (res) {
+              console.log('初始线路收藏失败')
+            },
+            complete: function (res) {
+            }
+          })*/
+        
+        _page.setData({
+          "stationInfo.busCollected": bbarr
+        })
+        console.log("bbarr")
+        console.log(bbarr)
+//初始化线路收藏结束
+        //初始化站点收藏开始
+        db.collection('something').where({
           _openid: app.globalData.openid,
           station: _page.data.stationInfo.title
         }).get({
           success: function (res) {
-            console.log('成功')
+            console.log('初始站点收藏成功')
             if (res.data.length!=0){
               _page.setData({
                 "location.collected": true
@@ -440,13 +460,13 @@ Page({
             }
             
           },
-          fail: function (res) {
-            console.log('失败')
+          /*fail: function (res) {
+            console.log('初始站点收藏失败')
             
-          }
+          }*/
         })
 //初始化站点收藏结束
-        console.log(_page.data.stationInfo);
+
       },
       fail: function(res) {
         util.logError("车站距离获取失败");
@@ -517,21 +537,47 @@ Page({
     //console.log(app.globalData.show_info)
   },
   Collect_bus: function(e) {
+    const db = wx.cloud.database()
+    const _ = db.command
     var that = this
     var index = parseInt(e.currentTarget.dataset.index)
-    var x = !this.data.bus[index].collected
-    var bus = that.data.bus
+    var x = !this.data.stationInfo.busCollected[index]
     if (x == true) {
-      var key = "bus[" + index + "].collected"
+      
+      db.collection('route').add({
+        // data 字段表示需新增的 JSON 数据  
+        data: {
+          route: that.data.stationInfo.busList[index]
+        }, success: function (res) {
+          // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id          
+          console.log(res);
+          console.log(res.errMsg);
+        }
+      });//收藏或取消收藏站点
+      var key = "stationInfo.busCollected[" + index + "]"
       that.setData({
-        [key]: true
+        [key]: true,
       })
-    }
+      
 
-    if (x == false) {
-      var key = "bus[" + index + "].collected"
+    }else {
+      db.collection('route').where({
+        _openid: _.eq(app.globalData.openid),
+        route: that.data.stationInfo.busList[index]
+      }).get().then(res => {
+        console.log(res.data);
+        that.setData({
+          id: res.data[0]._id
+        })
+      })
+
+      db.collection('route').doc(that.data.id).remove({
+        success: console.log,
+        fail: console.error
+      })
+      var key = "stationInfo.busCollected[" + index + "]"
       that.setData({
-        [key]: false
+        [key]: false,
       })
     }
   },
