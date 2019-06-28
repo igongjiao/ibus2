@@ -23,6 +23,7 @@
       <swiper-item >
         <scroll-view class="content" scroll-y="true" >
           <view class="message" wx:for="{{routine}}" >
+          <cover-image class="{{'collect_locate'}}" bindtap="Collect_route" src="../../image/selected_heart.png" data-index="{{index}}"></cover-image>
             <text>{{item.message}}</text>
           </view>
         </scroll-view>
