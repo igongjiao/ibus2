@@ -85,6 +85,14 @@ Page({
       navbarActiveIndex: detail.current
     })
   },
+  startPullDownRefresh: function () {
+    wx.startPullDownRefresh();
+    this.onLoad();
+  },
+  stopPullDownRefresh: function () {
+    wx.stopPullDownRefresh()
+  },
+
   Collect_location: function (e) {
     const db = wx.cloud.database()
     const _ = db.command
@@ -113,9 +121,14 @@ Page({
         fail: console.error
       });
     });
+    this.startPullDownRefresh();
+    this.onLoad();
+    this.onShow();
+
     //console.log(this.data.id)
     
 
     
   },
+ 
 })

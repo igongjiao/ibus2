@@ -9,20 +9,20 @@
   </view>
   <view class="collect-content-wrapper">
     <swiper current="{{navbarActiveIndex}}" bindanimationfinish="onBindAnimationFinish" style="height:{{scrollViewHeight}}px;background-color:rgb(241, 241,243);">
-    <!-- 站点 -->
-      <swiper-item >
-        <scroll-view class="content" scroll-y="true" >
+      <!-- 站点 -->
+      <swiper-item>
+        <scroll-view class="content" scroll-y="true">
           <view class="message" wx:for="{{station}}">
-           <cover-image class="{{station.collected==false?'collect_locate':'collect_locate_hide'}}" bindtap="Collect_location" src="../../image/heart.png" data-index="{{index}}"></cover-image>
-           <cover-image class="{{station.collected==false?'collect_locate_hide':'collect_locate'}}" bindtap="Collect_location" src="../../image/selected_heart.png" data-index="{{index}}"></cover-image>
+            <cover-image class="{{station.collected==false?'collect_locate':'collect_locate_hide'}}" bindtap="Collect_location" src="../../image/delete.png" data-index="{{index}}"></cover-image>
+            <cover-image class="{{station.collected==false?'collect_locate_hide':'collect_locate'}}" bindtap="Collect_location" src="../../image/delete.png" data-index="{{index}}"></cover-image>
             <text>{{item.message}}</text>
           </view>
         </scroll-view>
       </swiper-item>
       <!-- 路线 -->
-      <swiper-item >
-        <scroll-view class="content" scroll-y="true" >
-          <view class="message" wx:for="{{routine}}" >
+      <swiper-item>
+        <scroll-view class="content" scroll-y="true">
+          <view class="message" wx:for="{{routine}}">
             <text>{{item.message}}</text>
           </view>
         </scroll-view>

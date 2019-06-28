@@ -1,0 +1,41 @@
+<!--miniprogram/pages/routine_info/routine_info.wxml-->
+<view class="top">
+  <image src="../../image/man.png"></image>
+  <view style="position: relative;left: 40rpx">
+    <view class="dot1"></view>
+    <view class="line1"></view>
+  </view>
+  <view style="position: relative;left:70rpx;">
+    <view>{{start}}</view>
+    <view style="font-size:25rpx;color:gray;margin-top:10rpx">{{distance}}</view>
+  </view>
+</view>
+
+<view class="middle">
+  <image src="../../image/bus_blue.png"></image>
+  <view style="position: relative;left: 40rpx">
+    <view class="line2"></view>
+  </view>
+  <view style="position: relative;left: 100rpx;">
+    <view>{{bus_number}}(开往和平大道)</view>
+    <view>
+      <view style="margin-top:30rpx" wx:for="{{station_info}}">
+        <view wx:if="{{index==0}}">{{item}}上车</view>
+        <view wx:elif="{{index==station_info.length-1}}">{{item}}下车</view>
+        <view wx:else>{{item}}</view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="bottom">
+  <image src="../../image/man.png"></image>
+  <view style="position: relative;left: 40rpx">
+    <view class="line3"></view>
+    <view class="dot2"></view>
+  </view>
+  <view style="position: relative;left: 70rpx;">
+    <view style="font-size:25rpx;color:gray;margin-top: 8px;margin-bottom: 10rpx;">{{distance}}</view>
+    <view>{{destination}}</view>
+  </view>
+</view>

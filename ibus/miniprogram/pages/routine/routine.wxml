@@ -10,7 +10,7 @@
         <input class="start" placeholder="我的位置" ></input>
         <input class="destination" placeholder="输入终点" ></input>
       </view>
-      <image class="change" src="../../image/location.png" bindtap="search"></image>
+      <image class="change" src="../../image/guide.png" bindtap="search"></image>
     </view>
   </view>
   <view class="bt">

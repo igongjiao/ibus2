@@ -1,0 +1,92 @@
+/* miniprogram/pages/routine_info/routine_info.wxss */
+.top{
+  height: 100rpx;
+  width:100%;
+  background-color: white;
+  font-size: 30rpx;
+  font-family: FontAwesome;
+  display: flex;
+  flex-direction: row;
+}
+
+.top image{
+  width: 50rpx;
+  height: 50rpx;
+  position: relative;
+  top: 40rpx;
+  left: 25rpx;
+}
+.top .dot1{
+  width: 11px;
+  height: 11px; 
+  border: 2px solid rgb(71, 255, 47);
+  border-radius: 100%;
+}
+.top .line1{
+  width: 3px;
+  height: 27px;
+  background: rgb(47, 255, 47);
+  position: relative;
+  left: 13.6rpx;
+}
+
+.middle{
+  width:100%;
+  font-size: 30rpx;
+  font-family: FontAwesome;
+  display: flex;
+  flex-direction: row;
+  background-color: rgba(220, 220, 220, 0.521);
+}
+
+.middle image{
+  width: 50rpx;
+  height: 50rpx;
+  position: relative;
+  top: 20rpx;
+  left: 25rpx;
+}
+
+.middle .line2{
+  position: relative;
+  left: 13.6rpx;
+  background-color: blue;
+  height: 100%;
+  width: 3px;
+}
+
+.bottom{
+  height: 100rpx;
+  width:100%;
+  font-size: 30rpx;
+  font-family: FontAwesome;
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+}
+
+.bottom image{
+  width: 50rpx;
+  height: 50rpx;
+  position: relative;
+  top: 20rpx;
+  left: 25rpx;
+}
+
+.bottom .dot2{
+  width: 11px;
+  height: 11px; 
+  border: 2px solid red;
+  border-radius: 100%;
+}
+
+.bottom .line3{
+  width: 3px;
+  height: 27px;
+  background: rgb(47, 255, 47);
+  position: relative;
+  left: 13.6rpx;
+}
+.station{
+  
+}

@@ -603,7 +603,7 @@ Page({
       }
   },
   Guide: function() {
-    wx.navigateTo({
+    wx.switchTab({
       url: '../routine/routine',
     })
   },

@@ -1,0 +1,26 @@
+<!--miniprogram/pages/guide/guide.wxml-->
+<view class="father">
+  <view class="search">
+    <view class="rectangle">
+      <view style="width:100%;margin-left:20rpx;">
+        <input class="start" placeholder="我的位置" ></input>
+        <input class="destination" placeholder="输入终点" ></input>
+      </view>
+      <image class="change" src="../../image/location.png" bindtap="search"></image>
+    </view>
+  </view>
+  <scroll-view class="guide_routines" scroll-y scroll-top="0">
+    <view class="routine" wx:for="{{routines}}" bindtap="show_info">
+      <view class="routine_info">
+        <view>{{item.time}}</view>
+        <view>步行{{item.walking_distance}}</view>
+      </view>
+      <view>
+        <view class="bus_number">{{item.bus_number}}</view>
+        <view style="color: gray;margin-top: 15rpx;">
+          <text>{{item.station_number}}站——{{item.getOn_station}}上车</text>
+        </view>
+      </view>
+    </view>
+</scroll-view>
+</view>

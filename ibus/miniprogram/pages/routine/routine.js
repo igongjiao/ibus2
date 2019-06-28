@@ -10,8 +10,8 @@ Page({
     })
   },
   search:function(){
-    wx.switchTab({
-      url: '../index/index',
+    wx.navigateTo({
+      url: '../guide/guide',
     })
   }
   
