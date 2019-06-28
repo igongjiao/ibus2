@@ -1,0 +1,18 @@
+<!--miniprogram/pages/guide/guide.wxml-->
+<view class="father">
+
+  <scroll-view class="guide_routines" scroll-y scroll-top="0">
+    <view class="routine" wx:for="{{routineList}}" bindtap="show_info" id="{{item.id}}">
+      <view class="routine_info">
+        <view>{{item.time}}</view>
+        <view>步行{{item.walking_distance}}</view>
+      </view>
+      <view>
+        <view class="bus_number" wx:for="{{item.busName}}" wx:for-item="bus">{{bus}}</view>
+        <view style="color: gray;margin-top: 15rpx;">
+          <text>{{item.station_number}}站——{{item.getOn_station}}上车</text>
+        </view>
+      </view>
+    </view>
+</scroll-view>
+</view>

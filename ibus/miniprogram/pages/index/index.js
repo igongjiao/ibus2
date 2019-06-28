@@ -598,8 +598,5 @@ Page({
     wx.switchTab({
       url: '../routine/routine',
     })
-    wx.navigateTo({
-      url: '../routine/routine',
-    })
   },
 })

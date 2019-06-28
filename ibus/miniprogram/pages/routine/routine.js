@@ -90,10 +90,11 @@ Page({
 
   searchInfo: function(e) {
     let _page = this;
-    console.log(_page.data.searchTitle);
-    console.log(_page.data.searchTitle2);
+    //console.log(_page.data.startLocation);
+    //console.log(_page.data.endLocation);
     if (_page.data.startLocation.fullInfo == false || _page.data.endLocation.fullInfo == false) {
       if (_page.data.startLocation.fullInfo == false) {
+        if (_page.data.searchTitle == ""){return;}
         qqmapsdk.getSuggestion({
           keyword: _page.data.startLocation.title,
           region: _page.data.searchingCity,
@@ -115,6 +116,7 @@ Page({
               startLocation: startL
             });
             if (_page.data.endLocation.fullInfo == false) {
+              if (_page.data.endLocation.title == "") { return; }
               qqmapsdk.getSuggestion({
                 keyword: _page.data.endLocation.title,
                 region: _page.data.searchingCity2,
@@ -153,6 +155,7 @@ Page({
           }
         });
       } else {
+        if (_page.data.endLocation.title == "") { return; }
         qqmapsdk.getSuggestion({
           keyword: _page.data.endLocation.title,
           region: _page.data.searchingCity2,
@@ -194,16 +197,15 @@ Page({
       searchSuggests: [],
       searchSuggests2: [],
     });
-    console.log("???")
-    console.log(_page.data.startLocation)
-    console.log(_page.data.endLocation)
+    //console.log(_page.data.startLocation)
+    //console.log(_page.data.endLocation)
 
 
     app.globalData.startDirection = _page.data.startLocation;
     app.globalData.endDirection = _page.data.endLocation;
     //页面跳转TODO
     wx.navigateTo({
-      url: '../bus_diagram/bus_diagram',
+      url: '../guide/guide',
     });
 
   },
@@ -334,9 +336,10 @@ Page({
       history_routine: null
     })
   },
+
   search: function() {
-    wx.switchTab({
-      url: '../index/index',
+    wx.navigateTo({
+      url: '../guide/guide',
     })
   }
 

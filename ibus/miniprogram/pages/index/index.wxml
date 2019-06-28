@@ -1,7 +1,8 @@
 <!--index.wxml-->
 
 <!--地图容器-->
-<map id="myMap" longitude="{{longitude}}" latitude="{{latitude}}" scale='{{scale}}' polyline="{{polyline}}" markers="{{markers}}" covers="{{covers}}" include-points="{{includePoints}}" circles="{{mapCircle}}" bindregionchange="RefreshMapMarkers"bindmarkertap="TapMapMarker"    show-location>
+<map id="myMap" longitude="{{longitude}}" latitude="{{latitude}}" scale='{{scale}}' polyline="{{polyline}}" markers="{{markers}}" covers="{{covers}}" include-points="{{includePoints}}" circles="{{mapCircle}}" bindregionchange="RefreshMapMarkers" bindmarkertap="TapMapMarker"
+  show-location>
   <cover-view class="search" bindtap="Search">
     <cover-image class="search_icon" src="../../image/search.png"></cover-image>
     <cover-view class="input">搜索公交路线、车站、地点 </cover-view>
@@ -9,13 +10,13 @@
   <cover-view class="{{show1==true?'show':'hide'}}">
     <cover-image class="up_down" src="../../image/{{show1==true?'down.png':'up.png'}}" bindtap="Switch_show"></cover-image>
     <cover-image class="locate" src="../../image/location.png" bindtap="RelocatingMapCenter"></cover-image>
-    <cover-image class="locate" src="../../image/location.png" bindtap="UnShowMapText"></cover-image>
+    <cover-image class="locate" src="../../image/eraser.png" bindtap="UnShowMapText"></cover-image>
   </cover-view>
 </map>
 
 <!-- 附近站点信息框 -->
 <cover-view class="pic" style="display:{{show1==true?'block':'none'}}" canvas-id="bus_station">
-  <cover-view  class="scroll" scroll-top="{{scrollTop}}">
+  <cover-view class="scroll" scroll-top="{{scrollTop}}">
     <!-- 地点显示框 -->
     <cover-view class="location_info">
       <cover-view class="info">

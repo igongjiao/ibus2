@@ -14,7 +14,7 @@
           <view wx:for="{{searchSuggests2}}" wx:for-item="sug">
             <text class="log-item"bindtap="changeInput2"id="{{sug.id}}">{{sug.title}}---{{sug.city}}</text></view>
       </view>
-      <image class="change" src="../../image/location.png" bindtap="searchInfo"></image>
+      <image class="change" src="../../image/guide.png" bindtap="searchInfo"></image>
     </view>
   </view>
   <view class="bt">

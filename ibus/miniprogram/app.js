@@ -71,6 +71,7 @@ App({
     //   lng: 0,
     // },
     endDirection: null,
+    routineD:null,
 
     openid:'',
   }
