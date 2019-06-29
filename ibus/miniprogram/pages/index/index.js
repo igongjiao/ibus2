@@ -329,10 +329,8 @@ Page({
               if (repeat) {
                 continue;
               }
-              //console.log(_page.data.markerLabelScale);
               mks.push({
                 id: num + markersLength,
-                //title: res.data[i].title,
                 label: {
                   content: res.data[i].title.split("[")[0] + "站",
                   color: "#424200",
@@ -358,7 +356,6 @@ Page({
             _page.setData({
               markers: mks,
             });
-            //console.log(mks);
           },
           fail: function(res) {
             util.logError("车站信息获取失败");
@@ -389,7 +386,6 @@ Page({
         longitude: _page.data.markers[options.markerId].longitude
       }],
       success: function(res) {
-        //console.log(res);
         var res = res.result;
         _page.setData({
           stationInfo: {
@@ -418,24 +414,17 @@ Page({
           success: function(res) {
             for (var a = 0; a < _page.data.stationInfo.busList.length; a++) {
               var key = "stationInfo.busCollected[" + a + "]"
-              //console.log([key])
               _page.setData({
                 [key]: false,
               })
-              //console.log(_page.data.stationInfo.busCollected[a])
-              //bbarr[a] = false
-              //console.log(_page.data.stationInfo.busList[a])
               for (var b = 0; b < res.data.length; b++) {
                 if (res.data[b].route == _page.data.stationInfo.busList[a]) {
                   _page.setData({
                     [key]: true,
                   })
-                  //console.log(_page.data.stationInfo.busCollected[a])
-                  //bbarr[a] = true
                 }
               }
             }
-            //console.log(_page.data.stationInfo.busCollected)
           },
           fail: function(res) {
             console.log('初始线路收藏失败')
@@ -534,6 +523,53 @@ Page({
     })
     //console.log(app.globalData.show_info)
   },
+  Collect_location: function () {
+    const db = wx.cloud.database()
+    const _ = db.command
+    var station = this.data.stationInfo.title
+    var that = this
+    var collected = !this.data.location.collected
+    var openid
+    var key = "location.collected"
+    //收藏或取消收藏站点
+    if (collected == false) {
+      db.collection('something').where({
+        _openid: _.eq(app.globalData.openid),
+        station: station
+      }).get().then(res => {
+        console.log(res.data);
+        that.setData({
+          id: res.data[0]._id
+        })
+        db.collection('something').doc(that.data.id).remove({
+          success: console.log,
+          fail: console.error
+        })
+      })
+
+      this.setData({
+        [key]: collected
+      })
+    } else {
+
+      console.log(station);
+
+      db.collection('something').add({
+        // data 字段表示需新增的 JSON 数据        
+        data: {
+          station: station,
+        },
+        success: function (res) {
+          // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id          
+          console.log(res);
+          console.log(res.errMsg);
+        }
+      }); //收藏或取消收藏站点
+      this.setData({
+        [key]: collected
+      })
+    }
+  },
   Collect_bus: function(e) {
     const db = wx.cloud.database()
     const _ = db.command
@@ -557,7 +593,6 @@ Page({
       that.setData({
         [key]: true,
       })
-
 
     } else {
       db.collection('route').where({
@@ -597,57 +632,7 @@ Page({
     });
   },
 
-  Collect_location: function() {
-    const db = wx.cloud.database()
-    const _ = db.command
-    var station = this.data.stationInfo.title
-    var that = this
-    var collected = !this.data.location.collected
-    var openid
-    var key = "location.collected"
-    //收藏或取消收藏站点
-    if (collected == false) {
-      db.collection('something').where({
-        _openid: _.eq(app.globalData.openid),
-        station: station
-      }).get().then(res => {
-        /*that.setData({
-          id: res.data[0]._id
-        })*/
-        console.log(res.data);
-        that.setData({
-          id: res.data[0]._id
-        })
-        db.collection('something').doc(that.data.id).remove({
-          success: console.log,
-          fail: console.error
-        })
-      })
 
-      
-      this.setData({
-        [key]: collected
-      })
-    } else {
-
-      console.log(station);
-
-      db.collection('something').add({
-        // data 字段表示需新增的 JSON 数据        
-        data: {
-          station: station,
-        },
-        success: function(res) {
-          // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id          
-          console.log(res);
-          console.log(res.errMsg);
-        }
-      }); //收藏或取消收藏站点
-      this.setData({
-        [key]: collected
-      })
-    }
-  },
   Guide: function() {
     let _page = this;
     app.globalData.startDirection = {
