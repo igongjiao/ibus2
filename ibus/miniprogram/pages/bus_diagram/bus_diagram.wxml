@@ -7,7 +7,7 @@
     </view>
     <image src="../../image/busicon.png" bindtap='testTap'></image>
  </view>
- <view style="width:100%;height:100rpx;font-size:50rpx;text-align:center;margin-top:30rpx;">总共{{busLine.stations.length}}站</view>
+ <view style="width:100%;height:100rpx;font-size:50rpx;text-align:center;margin-top:30rpx;">{{busLine.title}}总共{{busLine.stations.length}}站</view>
  <view class="diagram">
   <scroll-view class="scroll" scroll-x>
     <view class="item" wx:for="{{busLine.stations}}">

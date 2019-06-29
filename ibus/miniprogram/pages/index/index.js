@@ -10,7 +10,9 @@ var amapFile = require('../../libs/amap-wx.js');
 let qqmapsdk = new QQMapWX({
   key: 'I7OBZ-MZACP-B4PDK-VHGRK-H3THE-ZTBHC'
 });
-var myAmapFun = new amapFile.AMapWX({ key: 'c290b7e016c85e8f279b2f80018c6fbf' });
+var myAmapFun = new amapFile.AMapWX({
+  key: 'c290b7e016c85e8f279b2f80018c6fbf'
+});
 
 //获取应用实例
 var app = getApp()
@@ -69,12 +71,12 @@ Page({
       distance: 0,
       duration: 0,
       busList: [],
-      busCollected:[],
+      busCollected: [],
       province: "",
       city: "",
       district: "",
     },
-    id: ''//获取id
+    id: '' //获取id
 
   },
 
@@ -103,7 +105,10 @@ Page({
           longitude: res.longitude,
           scale: 17
         });
-        app.globalData.userLocation = { lat: res.latitude, lng: res.longitude};
+        app.globalData.userLocation = {
+          lat: res.latitude,
+          lng: res.longitude
+        };
         // wx.setStorageSync('userlatlng', {
         //   lat: res.latitude,
         //   lng: res.longitude
@@ -207,9 +212,11 @@ Page({
       var markerNum = -1;
       console.log(app.globalData.selectStation);
       for (var i = 0; i < mapMarkers.length; i++) {
-        if (selectStation.title == mapMarkers[i].label.content.slice(0, -1) &&
-          selectStation.location.latitude == mapMarkers[i].latitude &&
-          selectStation.location.longitude == mapMarkers[i].longitude) {
+        if (selectStation.title == mapMarkers[i].label.content.slice(0, -1)
+          /*&&
+                   selectStation.location.latitude == mapMarkers[i].latitude &&
+                   selectStation.location.longitude == mapMarkers[i].longitude*/
+        ) {
           markerNum = i;
           break;
         }
@@ -408,7 +415,7 @@ Page({
         db.collection('route').where({
           _openid: app.globalData.openid,
         }).get({
-          success: function (res) {
+          success: function(res) {
             for (var a = 0; a < _page.data.stationInfo.busList.length; a++) {
               var key = "stationInfo.busCollected[" + a + "]"
               //console.log([key])
@@ -425,40 +432,38 @@ Page({
                   })
                   //console.log(_page.data.stationInfo.busCollected[a])
                   //bbarr[a] = true
-                } 
+                }
               }
             }
             //console.log(_page.data.stationInfo.busCollected)
           },
-          fail: function (res) {
+          fail: function(res) {
             console.log('初始线路收藏失败')
           },
-          complete: function (res) {
-          }
+          complete: function(res) {}
         })
-  
-//初始化线路收藏结束
+
         //初始化站点收藏开始
         db.collection('something').where({
           _openid: app.globalData.openid,
           station: _page.data.stationInfo.title
         }).get({
-          success: function (res) {
+          success: function(res) {
             console.log('初始站点收藏成功')
-            if (res.data.length!=0){
+            if (res.data.length != 0) {
               _page.setData({
                 "location.collected": true
               })
-            }else{
+            } else {
               _page.setData({
                 "location.collected": false
               })
             }
-            
+
           },
-          
+
         })
-//初始化站点收藏结束
+        //初始化站点收藏结束
 
       },
       fail: function(res) {
@@ -536,24 +541,25 @@ Page({
     var index = parseInt(e.currentTarget.dataset.index)
     var x = !this.data.stationInfo.busCollected[index]
     if (x == true) {
-      
+
       db.collection('route').add({
         // data 字段表示需新增的 JSON 数据  
         data: {
           route: that.data.stationInfo.busList[index]
-        }, success: function (res) {
+        },
+        success: function(res) {
           // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id          
           console.log(res);
           console.log(res.errMsg);
         }
-      });//收藏或取消收藏站点
+      }); //收藏或取消收藏站点
       var key = "stationInfo.busCollected[" + index + "]"
       that.setData({
         [key]: true,
       })
-      
 
-    }else {
+
+    } else {
       db.collection('route').where({
         _openid: _.eq(app.globalData.openid),
         route: that.data.stationInfo.busList[index]
@@ -591,16 +597,16 @@ Page({
     });
   },
 
-  Collect_location:function(){
+  Collect_location: function() {
     const db = wx.cloud.database()
     const _ = db.command
     var station = this.data.stationInfo.title
-    var that=this
-    var collected =!this.data.location.collected
-    var openid 
+    var that = this
+    var collected = !this.data.location.collected
+    var openid
     var key = "location.collected"
     //收藏或取消收藏站点
-    if (collected==false){ 
+    if (collected == false) {
       db.collection('something').where({
         _openid: _.eq(app.globalData.openid),
         station: station
@@ -608,9 +614,9 @@ Page({
         /*that.setData({
           id: res.data[0]._id
         })*/
-        console.log(res.data);            
-        that.setData({                      
-        id: res.data[0]._id          
+        console.log(res.data);
+        that.setData({
+          id: res.data[0]._id
         })
         db.collection('something').doc(that.data.id).remove({
           success: console.log,
@@ -620,33 +626,33 @@ Page({
 
       
       this.setData({
-         [key]: collected
-       })
-      }
-      else{
-      
+        [key]: collected
+      })
+    } else {
+
       console.log(station);
-      
+
       db.collection('something').add({
         // data 字段表示需新增的 JSON 数据        
         data: {
           station: station,
-        }, success: function (res) {
+        },
+        success: function(res) {
           // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id          
           console.log(res);
           console.log(res.errMsg);
         }
-      });//收藏或取消收藏站点
-        this.setData({
-          [key]: collected
-        })
-      }
+      }); //收藏或取消收藏站点
+      this.setData({
+        [key]: collected
+      })
+    }
   },
   Guide: function() {
     let _page = this;
     app.globalData.startDirection = {
-      title:"我的位置",
-      fullInfo:true,
+      title: "我的位置",
+      fullInfo: true,
       lat: app.globalData.userLocation.lat,
       lng: app.globalData.userLocation.lng,
     };
