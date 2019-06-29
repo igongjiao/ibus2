@@ -418,11 +418,11 @@ Page({
           success: function(res) {
             for (var a = 0; a < _page.data.stationInfo.busList.length; a++) {
               var key = "stationInfo.busCollected[" + a + "]"
-              console.log([key])
+              //console.log([key])
               _page.setData({
                 [key]: false,
               })
-              console.log(_page.data.stationInfo.busCollected[a])
+              //console.log(_page.data.stationInfo.busCollected[a])
               //bbarr[a] = false
               //console.log(_page.data.stationInfo.busList[a])
               for (var b = 0; b < res.data.length; b++) {
@@ -430,12 +430,12 @@ Page({
                   _page.setData({
                     [key]: true,
                   })
-                  console.log(_page.data.stationInfo.busCollected[a])
+                  //console.log(_page.data.stationInfo.busCollected[a])
                   //bbarr[a] = true
                 }
               }
             }
-            console.log(_page.data.stationInfo.busCollected)
+            //console.log(_page.data.stationInfo.busCollected)
           },
           fail: function(res) {
             console.log('初始线路收藏失败')
@@ -443,12 +443,6 @@ Page({
           complete: function(res) {}
         })
 
-        /*_page.setData({
-          "stationInfo.busCollected": bbarr
-        })*/
-        console.log("busCollected")
-        console.log(_page.data.stationInfo.busCollected)
-        //初始化线路收藏结束
         //初始化站点收藏开始
         db.collection('something').where({
           _openid: app.globalData.openid,
@@ -574,12 +568,13 @@ Page({
         that.setData({
           id: res.data[0]._id
         })
+        db.collection('route').doc(that.data.id).remove({
+          success: console.log,
+          fail: console.error
+        })
       })
 
-      db.collection('route').doc(that.data.id).remove({
-        success: console.log,
-        fail: console.error
-      })
+      
       var key = "stationInfo.busCollected[" + index + "]"
       that.setData({
         [key]: false,
@@ -623,13 +618,13 @@ Page({
         that.setData({
           id: res.data[0]._id
         })
-
+        db.collection('something').doc(that.data.id).remove({
+          success: console.log,
+          fail: console.error
+        })
       })
 
-      db.collection('something').doc(that.data.id).remove({
-        success: console.log,
-        fail: console.error
-      })
+      
       this.setData({
         [key]: collected
       })
