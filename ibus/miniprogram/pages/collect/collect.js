@@ -18,6 +18,10 @@ Page({
     id: ''
   },
   
+  switchPage: function (option) {
+    console.log(option);
+  },
+
   onLoad: function (option) {
     var that = this
     wx.getSystemInfo({

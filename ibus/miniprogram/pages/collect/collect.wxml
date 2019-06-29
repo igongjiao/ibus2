@@ -12,7 +12,7 @@
       <!-- 站点 -->
       <swiper-item>
         <scroll-view class="content" scroll-y="true">
-          <view class="message" wx:for="{{station}}" style="display:{{item.collected==true?'flex':'none'}}">
+          <view class="message" wx:for="{{station}}" style="display:{{item.collected==true?'flex':'none'}}"bindtap="switchPage" id="{{item.message}}">
             <cover-image class="{{station.collected==false?'collect_locate':'collect_locate_hide'}}" bindtap="Collect_location" src="../../image/delete.png" data-index="{{index}}"></cover-image>
             <cover-image class="{{station.collected==false?'collect_locate_hide':'collect_locate'}}" bindtap="Collect_location" src="../../image/delete.png" data-index="{{index}}"></cover-image>
             <text>{{item.message}}</text>
