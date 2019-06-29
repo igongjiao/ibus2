@@ -1,4 +1,5 @@
 //app.js
+
 App({
   onLaunch: function () {
     // 展示本地存储能力
@@ -42,6 +43,7 @@ App({
   },
   data: {
     openid: '',
+   
   },
   onLoad: function () {
     this.getOpenid();
@@ -58,6 +60,7 @@ App({
     selectBus:null,
 
     qqmapsdk:null,
+    amapsdk:null,
 
     userLocation:{
       lat:0,

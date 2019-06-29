@@ -19,7 +19,7 @@
 }
 .top .dot1{
   width: 11px;
-  height: 11px; 
+  height: 11px;
   border: 2px solid rgb(71, 255, 47);
   border-radius: 100%;
 }

@@ -1,17 +1,21 @@
 //index.js
 //引入工具类
-const util = require('../../utils/util.js')
+const util = require('../../utils/util.js');
+
 // // 引入SDK核心类
 let QQMapWX = require('../../libs/qqmap-wx-jssdk.min.js');
-
+var amapFile = require('../../libs/amap-wx.js');
+// var amap = require('../../libs/amap-wx.js');
 // 实例化API核心类
 let qqmapsdk = new QQMapWX({
   key: 'I7OBZ-MZACP-B4PDK-VHGRK-H3THE-ZTBHC'
 });
+var myAmapFun = new amapFile.AMapWX({ key: 'c290b7e016c85e8f279b2f80018c6fbf' });
 
 //获取应用实例
 var app = getApp()
 app.globalData.qqmapsdk = qqmapsdk;
+app.globalData.amapsdk = myAmapFun;
 //地图动态更新使用的参数
 var mapLoadCountdown = 4;
 var mapRefreshCountdown = 0;
