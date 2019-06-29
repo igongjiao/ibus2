@@ -44,6 +44,9 @@ function formatDistance(d) {
   } else {
     distanceStr = m + "米";
   }
+  if(d<=0){
+    distanceStr="";
+  }
   return distanceStr;
 }
 

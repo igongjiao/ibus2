@@ -106,9 +106,61 @@ Page({
           });
           //console.log(_page.data.routineList)
         }, fail: function (error) {
-          util.logError("路线导航失败");
+          //util.logError("路线导航失败");
           console.log(error);
           //距离过近的路线规划
+          if (error.message == "起终点距离过近"){
+            app.globalData.qqmapsdk.direction({
+              mode: 'walking',
+              from: {
+                latitude: startD.lat,
+                longitude: startD.lng
+              },
+              to: {
+                latitude: endD.lat,
+                longitude: endD.lng
+              },
+              success: function (res) {
+                console.log(res);
+                var routes = res.result.routes;
+                if (routes.length <= 0) return;
+                var routesList = [];
+                for (var i = 0; i < routes.length; i++) {
+                  let steps = routes[i].steps;
+                  let busName = [];
+                  let station_number = 0;
+                  let getOn_station = "";
+                  let walking_distance = 0;
+                  for (var n = 0; n < steps.length; n++) {
+                    //console.log(steps[n]);
+                    if (steps[n].mode == "TRANSIT") {
+                      if (getOn_station == "") {
+                        getOn_station = steps[n].lines[0].geton.title;
+                      }
+                      busName.push(steps[n].lines[0].title);
+                      station_number += steps[n].lines[0].station_count;
+                    } else if (steps[n].mode == "WALKING") {
+                      walking_distance += steps[n].distance;
+                    }
+                  }
+                  let aRoute = {
+                    id: i,
+                    time: util.minuteToHour(routes[i].duration),
+                    busName: busName,
+                    getOn_station: getOn_station,
+                    station_number: station_number,
+                    walking_distance: util.formatDistance(walking_distance),
+                    steps: steps,
+                  }
+                  routesList.push(aRoute);
+                }
+                _page.setData({
+                  routineList: routesList,
+                });
+                console.log(_page.data.routineList)
+              }, 
+            });   
+          }
         },
       });          
 
