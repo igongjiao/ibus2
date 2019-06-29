@@ -174,9 +174,11 @@ Page({
     })
   },
 
-  Collect_location: function(e) {
+ /* Collect_location: function(e) {
     const db = wx.cloud.database()
     const _ = db.command
+
+    console.log(e.currentTarget.dataset.index);
     var station = this.data.station[e.currentTarget.dataset.index].message
     var that = this
     var collected = true
@@ -209,6 +211,43 @@ Page({
 
 
 
+    //console.log(this.data.id)
+
+
+
+  },
+*/
+  Collect_location: function (e) {
+    console.log(e);
+    const db = wx.cloud.database()
+    const _ = db.command
+    var station = this.data.station[e.currentTarget.dataset.index].message
+    var that = this
+    var collected = true
+    var key = "station[" + e.currentTarget.dataset.index + "]collected"
+    //var key = "location.collected"
+    //取消收藏站点
+    console.log("线路");
+    console.log(station);
+    console.log(this.data.station);
+    db.collection('something').where({
+      _openid: _.eq(app.globalData.openid),
+      station: station
+    }).get().then(res => {
+
+      console.log(res.data[0]._id);
+      that.setData({
+        id: res.data[0]._id,
+        [key]: false
+      })
+      console.log(this.data.station);
+      //this.data.id = res.data[0]._id
+      console.log(this.data.id)
+      db.collection('something').doc(this.data.id).remove({
+        success: console.log,
+        fail: console.error
+      });
+    });
     //console.log(this.data.id)
 
 
