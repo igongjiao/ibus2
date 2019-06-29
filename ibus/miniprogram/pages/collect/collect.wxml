@@ -13,9 +13,10 @@
       <swiper-item>
         <scroll-view class="content" scroll-y="true">
           <view class="message" wx:for="{{station}}" style="display:{{item.collected==true?'flex':'none'}}">
-            <cover-image class=" {{station.collected==false? 'collect_locate': 'collect_locate_hide'}} " bindtap="Collect_location " src="../../image/delete.png " data-index="{{index}} "></cover-image>
-            <cover-image class="{{station.collected==false? 'collect_locate_hide': 'collect_locate'}} " bindtap="Collect_location " src="../../image/delete.png " data-index="{{index}} "></cover-image>
             <text bindtap="switchStationPage" id="{{item.message}}">{{item.message}}</text>
+            <image class=" {{station.collected==false? 'collect_locate': 'collect_locate_hide'}} " bindtap="Collect_location " src="../../image/delete.png " data-index="{{index}} "></image>
+            <image class="{{station.collected==false? 'collect_locate_hide': 'collect_locate'}} " bindtap="Collect_location " src="../../image/delete.png " data-index="{{index}} "></image>
+
           </view>
         </scroll-view>
       </swiper-item>
@@ -23,8 +24,8 @@
       <swiper-item>
         <scroll-view class="content" scroll-y="true">
           <view class="message" wx:for="{{routine}}" style="display:{{item.collected==true?'flex':'none'}}">
-            <cover-image class="{{'collect_locate'}}" bindtap="Collect_route" src="../../image/delete.png" data-index="{{index}}"></cover-image>
             <text bindtap="switchBusPage" id="{{item.message}}">{{item.message}}</text>
+            <image class="{{'collect_locate'}}" bindtap="Collect_route" src="../../image/delete.png" data-index="{{index}}"></image>
           </view>
         </scroll-view>
       </swiper-item>

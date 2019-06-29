@@ -8,8 +8,8 @@
     <view class="rectangle">
       <view style="width:100%;margin-left:20rpx;">
         <input class="start" placeholder="输入起点" bindinput="get_search" value='{{searchTitle}}'></input>
-        <view wx:for="{{searchSuggests}}" wx:for-item="sug" style="background-color:white;width:100vh;">
-          <text class="log-item" bindtap="changeInput" id="{{sug.id}}">{{sug.title}}---{{sug.city}}</text>
+        <view  wx:for="{{searchSuggests}}" wx:for-item="sug" style="background-color:white;width:100vh;">
+          <text style="opacity:{{1}}" class="log-item" bindtap="changeInput" id="{{sug.id}}">{{sug.title}}---{{sug.city}}</text>
         </view>
         <input class="destination" placeholder="输入终点" bindinput="get_search2" value='{{searchTitle2}}'></input>
         <view wx:for="{{searchSuggests2}}" wx:for-item="sug">

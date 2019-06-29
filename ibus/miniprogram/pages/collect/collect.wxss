@@ -43,7 +43,7 @@
 
 }
 .message{
-  height:200rpx;
+  height:100rpx;
   margin: 20rpx 2% 20rpx 2%;
   width: 96%;
   background-color: white;
@@ -51,6 +51,7 @@
   border-radius: 3%;
   display: flex;
   flex-direction: row;
+  position: relative;
 }
 ::-webkit-scrollbar{
     width: 0;
@@ -60,6 +61,10 @@
 .collect_locate{
   height: 50rpx;
   width: 50rpx;
+  position: absolute;
+right: 0;
+top: 20rpx;
+
 }
 
 .collect_locate_hide{
