@@ -12,19 +12,24 @@
       <!-- 站点 -->
       <swiper-item>
         <scroll-view class="content" scroll-y="true">
-          <view class="message" wx:for="{{station}}" style="display:{{item.collected==true?'flex':'none'}}">
-            <cover-image class="{{station.collected==false?'collect_locate':'collect_locate_hide'}}" bindtap="Collect_location" src="../../image/delete.png" data-index="{{index}}"></cover-image>
-            <cover-image class="{{station.collected==false?'collect_locate_hide':'collect_locate'}}" bindtap="Collect_location" src="../../image/delete.png" data-index="{{index}}"></cover-image>
+
+          <view class="message" wx:for="{{station}}" style="display:{{item.collected==true?'flex':'none'}}" bindtap="switchPage" id="{{item.message}}">
             <text>{{item.message}}</text>
+            <image class="{{station.collected==false?'collect_locate':'collect_locate_hide'}}" bindtap="Collect_location" src="../../image/delete.png" data-index="{{index}}"></image>
+            <image class="{{station.collected==false?'collect_locate_hide':'collect_locate'}}" bindtap="Collect_location" src="../../image/delete.png" data-index="{{index}}"></image>
+           
           </view>
         </scroll-view>
       </swiper-item>
       <!-- 路线 -->
-      <swiper-item >
-        <scroll-view class="content" scroll-y="true" >
-          <view class="message" wx:for="{{routine}}" >
-          <cover-image class="{{'collect_locate'}}" bindtap="Collect_route" src="../../image/selected_heart.png" data-index="{{index}}"></cover-image>
+      <swiper-item>
+        <scroll-view class="content" scroll-y="true">
+
+          <view class="message" wx:for="{{routine}}" style="display:{{item.collected==true?'flex':'none'}}">
             <text>{{item.message}}</text>
+            <image class="collect_locate" bindtap="Collect_route" src="../../image/delete.png" data-index="{{index}}"></image>
+
+            
           </view>
         </scroll-view>
       </swiper-item>
