@@ -12,7 +12,7 @@
 </view>
 
 <view class="item" wx:for="{{steps}}" wx:for-item="step" >
-  <view class="bus_route" wx:if="{{step.mode=='TRANSIT'}}" style="height:{{90+30*(step.lines[0].stations.length-1)}}px">
+  <view class="bus_route" wx:if="{{step.mode=='TRANSIT'}}" style="height:{{90+32*(step.lines[0].stations.length-1)}}px">
     <image src="../../image/bus_blue.png"></image>
     <view style="position: absolute;left: 11%;height:100%;">
       <view class="line2"></view>

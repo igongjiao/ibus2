@@ -30,6 +30,8 @@
  .bt_group{
   background-color: white;
   height: 100%;
+  padding-top: 40rpx;
+  
 }
 
  .bt{
