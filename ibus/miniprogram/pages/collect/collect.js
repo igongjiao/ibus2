@@ -11,8 +11,7 @@ Page({
       "路线收藏",
     ],
     station: [{ message: "", collected: false}],
-    routine: [{ message: 1 }, { message: 2 }, { message: 3 }, { message: 4 }, { message: 5 }, { message: 6 },
-      { message: 1 }, { message: 2 }, { message: 3 }, { message: 4 }, { message: 5 }, { message: 6 },],
+    routine: [{ message: "", collected: false}],
     windowHeight: 0,
     scrollViewHeight:0,
     id: ''
@@ -37,6 +36,7 @@ Page({
 
     const db = wx.cloud.database()
     var that = this
+    //显示收藏站点
     db.collection('something').where({
       _openid: app.globalData.openid,
     }).get({
@@ -48,9 +48,11 @@ Page({
         {
           
           var key = "station[" + i + "].message"
+          var key2 = "station[" + i + "].collected"
           console.log(res.data[i].station)
           that.setData({
-            [key]: res.data[i].station
+            [key]: res.data[i].station,
+            [key2]:true
           })
         }
         
@@ -59,7 +61,30 @@ Page({
         console.log()
       }
     })
-    
+    //显示收藏线路
+    db.collection('route').where({
+      _openid: app.globalData.openid,
+    }).get({
+      success: function (res) {
+        console.log('成功')
+        console.log(res.data.length)
+        var station = that.data.station
+        for (var i = 0; i < res.data.length; i++) {
+
+          var key = "routine[" + i + "].message"
+          var key2 = "routine[" + i + "].collected"
+          console.log(res.data[i].route)
+          that.setData({
+            [key]: res.data[i].route,
+            [key2]:true
+          })
+        }
+
+      },
+      fail: function (res) {
+        console.log()
+      }
+    })
    
   },
   /**
@@ -104,6 +129,7 @@ Page({
     //取消收藏站点
     console.log("站名");
     console.log(station);
+    console.log(this.data.station);
     db.collection('something').where({
       _openid: _.eq(app.globalData.openid),
       station: station
@@ -114,6 +140,7 @@ Page({
         id: res.data[0]._id,
         [key]:false
       })
+      console.log(this.data.station);
       //this.data.id = res.data[0]._id
       console.log(this.data.id)
       db.collection('something').doc(this.data.id).remove({
@@ -130,5 +157,40 @@ Page({
 
     
   },
- 
+
+  Collect_route: function (e) {
+    const db = wx.cloud.database()
+    const _ = db.command
+    var route = this.data.routine[e.currentTarget.dataset.index].message
+    var that = this
+    var collected = true
+    var key = "routine[" + e.currentTarget.dataset.index + "]collected"
+    //var key = "location.collected"
+    //取消收藏站点
+    console.log("线路");
+    console.log(route);
+    console.log(this.data.routine);
+    db.collection('route').where({
+      _openid: _.eq(app.globalData.openid),
+      route: route
+    }).get().then(res => {
+
+      console.log(res.data[0]._id);
+      that.setData({
+        id: res.data[0]._id,
+        [key]: false
+      })
+      console.log(this.data.routine);
+      //this.data.id = res.data[0]._id
+      console.log(this.data.id)
+      db.collection('route').doc(this.data.id).remove({
+        success: console.log,
+        fail: console.error
+      });
+    });
+    //console.log(this.data.id)
+
+
+
+  },
 })
