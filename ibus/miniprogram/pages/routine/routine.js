@@ -6,22 +6,7 @@ var qqmapsdk = app.globalData.qqmapsdk;
 Page({
 
   data: {
-    history_routine: [{
-      start: "华中科技大学",
-      destination: "武汉大学"
-    }, {
-      start: "华中科技大学",
-      destination: "武汉大学"
-    }, {
-      start: "华中科技大学",
-      destination: "武汉大学"
-    }, {
-      start: "华中科技大学",
-      destination: "武汉大学"
-    }, {
-      start: "华中科技大学",
-      destination: "武汉大学"
-    }, ],
+    history_routine: [],
 
     searchCity: "武汉市$$$$$$$$",
     searchingCity: "",

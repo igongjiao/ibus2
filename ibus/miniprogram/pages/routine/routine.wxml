@@ -19,6 +19,8 @@
       <image class="change" src="../../image/guide.png" bindtap="searchInfo"></image>
     </view>
   </view>
+  </view>
+  <!--
   <view class="bt">
     <text>搜索历史</text>
     <image src="../../image/delete.png" bindtap="Delete_history"></image>
@@ -29,4 +31,4 @@
       <text>{{item.start}}——>{{item.destination}}</text>
     </view>
   </view>
-</view>
+-->
