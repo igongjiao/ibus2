@@ -1,7 +1,7 @@
 <!--pages/routine/routine.wxml-->
 <view class="father">
   <view class="title">
-    <text>路线</text>
+    <text>路线规划</text>
     <image src="../../image/search.png"></image>
   </view>
   <view class="search">
@@ -19,14 +19,14 @@
       <image class="change" src="../../image/guide.png" bindtap="searchInfo"></image>
     </view>
   </view>
-  <view class="bt">
+  <!-- <view class="bt">
     <text>搜索历史</text>
     <image src="../../image/delete.png" bindtap="Delete_history"></image>
-  </view>
-  <view class="history">
+  </view> -->
+  <!-- <view class="history">
     <view class="routine" wx:for="{{history_routine}}">
       <icon type="waiting" size="15" color="gray" style="margin-top:18rpx;"></icon>
       <text>{{item.start}}——>{{item.destination}}</text>
     </view>
-  </view>
+  </view> -->
 </view>
